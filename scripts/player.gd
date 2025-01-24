@@ -66,9 +66,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		var resistance : Vector2 = Velocity * GROUND_RES_COEF
 		Velocity -= resistance
-
 	velocity = Velocity * delta
 	move_and_slide()
+	
+	if 
 
 	if is_on_wall():
 		Velocity.x = 0
