@@ -155,7 +155,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="player" type="CharacterBody2D"]
-collision_mask = 7
+collision_mask = 3
 safe_margin = 0.05
 script = ExtResource("1_wklbj")
 
