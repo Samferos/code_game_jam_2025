@@ -1153,3 +1153,8 @@ offset_bottom = 27.0
 theme = SubResource("Theme_cc1fv")
 show_percentage = false
 script = ExtResource("1_45nqy")
+
+[node name="FadeTimer" type="Timer" parent="."]
+wait_time = 3.5
+
+[connection signal="timeout" from="FadeTimer" to="." method="_on_timer_timeout"]

@@ -1,5 +1,8 @@
 extends CharacterBody2D
+class_name Player
 
+const MAX_HEALTH = 100
+var CURRENT_HEALTH = MAX_HEALTH
 
 const SPEED = 5.0
 const RATIO = 1_000
@@ -17,13 +20,22 @@ var FacingDirection : CharacterDirection
 var Velocity : Vector2
 var HoldingWall = false
 
-var health : float
-
+@onready var health_bar: ProgressBar = $CanvasLayer/ProgressBar
 @onready var cooldown_timer = $dashCooldown 
 var DashUnlocked = true
 
-func take_damage(damage : float):
-	health = health-damage
+func _ready() -> void:
+	health_bar.set_health(MAX_HEALTH)
+	health_bar.visible = true
+	
+func _on_health_depleted():
+	collision_layer = 0
+	collision_mask = 0
+	
+func take_damage(damage):
+	CURRENT_HEALTH -= damage
+	print(CURRENT_HEALTH)
+	health_bar.update_health(CURRENT_HEALTH)
 
 func Move(direction:Vector2) -> void:
 	
@@ -86,7 +98,8 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_ceiling():
 		Velocity.y=0
-	
+
+
 	if is_on_wall():
 		Velocity.x = 0
 	elif Velocity.y > 0:
@@ -101,6 +114,12 @@ func _process(_delta) -> void:
 		Jump()
 	if Input.is_action_just_pressed("dash"):
 		Dash(direction)
+	if CURRENT_HEALTH <= 0:
+		_on_health_depleted()
+	health_bar.visible = true
+	
+
+	
 		
 	match State:
 		CharacterStatus.FALLING:
