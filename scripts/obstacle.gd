@@ -26,7 +26,8 @@ func close() -> void:
 	closing.emit()
 
 	var points = $Path.curve.get_baked_points()
-	for point in points.reverse():
+	points.reverse()
+	for point in points:
 		position = point + initial_position
 		await get_tree().create_timer(0.03).timeout
 
