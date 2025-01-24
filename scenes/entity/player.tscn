@@ -163,3 +163,7 @@ autoplay = "idle"
 [node name="dashCooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="slashCooldown" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true

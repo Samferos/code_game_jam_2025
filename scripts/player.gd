@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
 
-const SPEED = 3.0
+const SPEED = 5.0
 const RATIO = 1_000
 const RATIO_SQUARED = RATIO*RATIO
 const AIR_CONTROL = 0.14
-const JUMP_FORCE = 45
-const AIR_DRAG_COEF = 0.95
+const JUMP_FORCE = 29.5
+const AIR_DRAG_COEF = 0.42
 const GROUND_RES_COEF = 0.25
-const DASH_SPEED = 7
+const DASH_SPEED = 5
 
 @onready var SpriteSheet : AnimatedSprite2D = $sprite
 var slash = preload("res://assets/fx/slash.tscn")
@@ -22,7 +22,7 @@ var health : float
 @onready var cooldown_timer = $dashCooldown 
 var DashUnlocked = true
 
-func damage(damage : float):
+func take_damage(damage : float):
 	health = health-damage
 
 func Move(direction:Vector2) -> void:
@@ -43,7 +43,9 @@ func Move(direction:Vector2) -> void:
 		State = CharacterStatus.SLIDING
 		HoldingWall = true
 	else:
-		Velocity += direction * SPEED * RATIO * AIR_CONTROL
+		var desired_air_control = direction * SPEED * RATIO * AIR_CONTROL
+		if Velocity.length() + desired_air_control.length() < 20.0 * RATIO:
+			Velocity += desired_air_control
 
 
 func Jump() -> void:
@@ -81,13 +83,7 @@ func _physics_process(delta: float) -> void:
 		Velocity -= resistance
 	velocity = Velocity * delta
 	move_and_slide()
-<<<<<<< HEAD
-	
-=======
-	if is_on_wall():
-		Velocity.x = 0
-		
->>>>>>> ab86b50581db35a3e4429d0ef273d0b3f554c02e
+
 	if is_on_ceiling():
 		Velocity.y=0
 	
@@ -99,7 +95,7 @@ func _physics_process(delta: float) -> void:
 func _process(_delta) -> void:
 	if (is_on_floor()):
 		State = CharacterStatus.ONGROUND
-	var direction = Input.get_vector("left","right","up","down")
+	var direction = Vector2(int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")), int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up")))
 	Move(Vector2(direction.x,clampf(direction.y, 0, 1)))
 	if Input.is_action_just_pressed("jump"):
 		Jump()
@@ -128,12 +124,25 @@ func _process(_delta) -> void:
 		SpriteSheet.flip_h = false
 	
 	if Input.is_action_just_pressed("slash"):
-		var slash_instance : AnimatedSprite2D = slash.instantiate()
-		add_child(slash_instance)
-		slash_instance.animation_finished.connect(
-			func(): slash_instance.queue_free()
+		if $slashCooldown.is_stopped():
+			attack()
+
+
+func attack():
+	$slashCooldown.start()
+	var slash_instance : AnimatedSprite2D = slash.instantiate()
+	if FacingDirection == CharacterDirection.RIGHT:
+		slash_instance.flip_h = false
+		slash_instance.translate(Vector2(15,0))
+	else:
+		slash_instance.flip_h = true
+		slash_instance.translate(Vector2(-15,0))
+	add_child(slash_instance)
+	slash_instance.animation_finished.connect(
+		func(): slash_instance.queue_free()
 		)
-	
+
+
 enum CharacterStatus{
 	ONGROUND,
 	WALKING,

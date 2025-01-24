@@ -1,7 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://b705wb37c503h"]
+[gd_scene load_steps=16 format=3 uid="uid://r71e1emmrhv2"]
 
 [ext_resource type="Script" path="res://scripts/tamtam.gd" id="1_lwgyx"]
-[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_45c13"]
+[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_45c13"]
 [ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_lkgw7"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4ex5y"]
@@ -89,7 +89,7 @@ func _process(delta: float) -> void:
 radius = 5.0
 height = 20.0
 
-[node name="tamtam" type="CharacterBody2D"]
+[node name="tamtam" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_lwgyx")
