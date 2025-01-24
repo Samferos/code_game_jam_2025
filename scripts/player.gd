@@ -36,6 +36,9 @@ func take_damage(damage : float):
 	CURRENT_HEALTH -= damage
 	print(CURRENT_HEALTH)
 	health_bar.update_health(CURRENT_HEALTH)
+	
+func take_knockback(kb : Vector2):
+	Velocity.x = kb.x
 
 func Move(direction:Vector2) -> void:
 	
@@ -118,13 +121,10 @@ func _physics_process(delta: float) -> void:
 			attack()
 
 func _process(_delta) -> void:
-
-
 	if CURRENT_HEALTH <= 0:
 		_on_health_depleted()
 	health_bar.visible = true
-	
-		
+
 	match State:
 		CharacterStatus.FALLING:
 			if SpriteSheet.animation!="fall":

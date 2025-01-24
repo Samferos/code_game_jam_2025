@@ -130,9 +130,18 @@ texture = ExtResource("1_wu7j1")
 0:6/0 = 0
 0:6/0/z_index = -2
 0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:6/0/physics_layer_0/polygon_0/one_way = true
+0:6/0/physics_layer_0/polygon_0/one_way_margin = 4.0
+1:6/0 = 0
+1:6/0/z_index = -2
+1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:6/0/physics_layer_0/polygon_0/one_way = true
+1:6/0/physics_layer_0/polygon_0/one_way_margin = 4.0
 2:6/0 = 0
 2:6/0/z_index = -2
 2:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:6/0/physics_layer_0/polygon_0/one_way = true
+2:6/0/physics_layer_0/polygon_0/one_way_margin = 4.0
 15:0/0 = 0
 15:0/0/z_index = -2
 15:1/0 = 0
@@ -164,15 +173,9 @@ texture = ExtResource("1_wu7j1")
 3:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:9/0 = 0
 3:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:6/0 = 0
-1:6/0/z_index = -2
 
 [resource]
-physics_layer_0/collision_layer = 2
-<<<<<<< HEAD
-physics_layer_0/collision_mask = 2
-=======
-physics_layer_0/collision_mask = 7
->>>>>>> c8b95afd65df1704e6d528279fab121b4da9bab5
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_psu77")
 pattern_0 = SubResource("TileMapPattern_r1r2a")
