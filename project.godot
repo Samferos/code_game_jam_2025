@@ -15,15 +15,17 @@ run/main_scene="res://scenes/node_2d.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
 "res://assets/": "orange",
 "res://scenes/": "purple",
 "res://scripts/": "green"
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+}
 
 [input]
 
