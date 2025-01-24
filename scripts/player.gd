@@ -20,7 +20,7 @@ var FacingDirection : CharacterDirection
 var Velocity : Vector2
 var HoldingWall = false
 
-@onready var health_bar: ProgressBar = $CanvasLayer/ProgressBar
+@onready var health_bar: ProgressBar = $HUD/healthbar
 @onready var cooldown_timer = $dashCooldown 
 var DashUnlocked = true
 
@@ -32,7 +32,7 @@ func _on_health_depleted():
 	collision_layer = 0
 	collision_mask = 0
 	
-func take_damage(damage):
+func take_damage(damage : float):
 	CURRENT_HEALTH -= damage
 	print(CURRENT_HEALTH)
 	health_bar.update_health(CURRENT_HEALTH)
@@ -118,8 +118,6 @@ func _process(_delta) -> void:
 		_on_health_depleted()
 	health_bar.visible = true
 	
-
-	
 		
 	match State:
 		CharacterStatus.FALLING:
@@ -145,6 +143,8 @@ func _process(_delta) -> void:
 	if Input.is_action_just_pressed("slash"):
 		if $slashCooldown.is_stopped():
 			attack()
+			
+	health_bar.visible = true
 
 
 func attack():
