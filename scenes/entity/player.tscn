@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://diafd8q67jpwl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wklbj"]
-[ext_resource type="Texture2D" uid="uid://chxwjmcmcmwn4" path="res://assets/sprites/carl.png" id="2_b8aac"]
+[ext_resource type="Texture2D" uid="uid://dvwgoovm1xrsp" path="res://assets/sprites/carl.png" id="2_b8aac"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g0lnx"]
 radius = 7.0

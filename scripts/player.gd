@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
 
-const SPEED = 5
+const SPEED = 3.0
 const RATIO = 1_000
 const RATIO_SQUARED = RATIO*RATIO
-const AIR_CONTROL = 0.06
-const JUMP_FORCE = 29.5
-const AIR_DRAG_COEF = 0.35
+const AIR_CONTROL = 0.14
+const JUMP_FORCE = 45
+const AIR_DRAG_COEF = 0.95
 const GROUND_RES_COEF = 0.25
-const DASH_SPEED = 5
+const DASH_SPEED = 7
 
 
 var Velocity : Vector2
@@ -69,7 +69,6 @@ func _physics_process(delta: float) -> void:
 	velocity = Velocity * delta
 	move_and_slide()
 	
-	if 
 
 	if is_on_wall():
 		Velocity.x = 0
