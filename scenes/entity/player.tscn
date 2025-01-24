@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dvwgoovm1xrsp" path="res://assets/sprites/carl.png" id="2_b8aac"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g0lnx"]
-radius = 7.0
+radius = 8.0
 height = 22.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oth76"]
@@ -74,7 +74,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"fall",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -82,7 +82,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -93,7 +93,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -102,9 +102,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0kvk2")
 }],
-"loop": true,
+"loop": false,
 "name": &"start_fall",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -130,7 +130,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [node name="player" type="CharacterBody2D"]
@@ -140,14 +140,12 @@ script = ExtResource("1_wklbj")
 shape = SubResource("CapsuleShape2D_g0lnx")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -4)
+position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_etclu")
-animation = &"idle"
+animation = &"start_fall"
 autoplay = "idle"
-frame_progress = 0.144497
 
 [node name="cameraTransform" type="RemoteTransform2D" parent="."]
-remote_path = NodePath("../../Camera2D")
 
 [node name="dashCooldown" type="Timer" parent="."]
 wait_time = 2.0
