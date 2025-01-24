@@ -55,10 +55,10 @@ autoplay = "default"
 frame = 4
 frame_progress = 1.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["player"]]
 script = ExtResource("2_3iuas")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["player"]]
 shape = SubResource("CircleShape2D_gm8b7")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="do_damage"]
