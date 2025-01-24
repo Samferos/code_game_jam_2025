@@ -98,14 +98,12 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_ceiling():
 		Velocity.y=0
-
-
+		
 	if is_on_wall():
 		Velocity.x = 0
 	elif Velocity.y > 0:
 		State = CharacterStatus.FALLING
-
-func _process(_delta) -> void:
+		
 	if (is_on_floor()):
 		State = CharacterStatus.ONGROUND
 	var direction = Vector2(int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")), int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up")))
@@ -114,6 +112,14 @@ func _process(_delta) -> void:
 		Jump()
 	if Input.is_action_just_pressed("dash"):
 		Dash(direction)
+	
+	if Input.is_action_just_pressed("slash"):
+		if $slashCooldown.is_stopped():
+			attack()
+
+func _process(_delta) -> void:
+
+
 	if CURRENT_HEALTH <= 0:
 		_on_health_depleted()
 	health_bar.visible = true
@@ -140,9 +146,7 @@ func _process(_delta) -> void:
 	else:
 		SpriteSheet.flip_h = false
 	
-	if Input.is_action_just_pressed("slash"):
-		if $slashCooldown.is_stopped():
-			attack()
+
 			
 	health_bar.visible = true
 
