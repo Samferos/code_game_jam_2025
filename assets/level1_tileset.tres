@@ -1,12 +1,12 @@
 [gd_resource type="TileSet" load_steps=4 format=3 uid="uid://ckbuyp4oefuw1"]
 
-[ext_resource type="Texture2D" uid="uid://gh5m3bbrwttr" path="res://assets/terrain.png" id="1_wpl17"]
+[ext_resource type="Texture2D" uid="uid://dwo52hei08qj8" path="res://assets/sprites/terrain.png" id="1_wu7j1"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_r1r2a"]
 tile_data = PackedInt32Array(0, 262144, 4, 65536, 65536, 1, 131072, 65536, 1, 196608, 65536, 1, 262144, 65536, 1, 327680, 65536, 1, 65537, 262144, 4, 131073, 65536, 1, 196609, 65536, 1, 262145, 65536, 1, 327681, 65536, 1, 131074, 262144, 4, 196610, 65536, 1, 262146, 65536, 1, 327682, 65536, 1, 196611, 262144, 4, 262147, 65536, 1, 327683, 65536, 1, 262148, 262144, 4, 327684, 65536, 1, 327685, 262144, 4)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_psu77"]
-texture = ExtResource("1_wpl17")
+texture = ExtResource("1_wu7j1")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -3.9375, -8, -8, -3.9375)
 1:0/0 = 0
