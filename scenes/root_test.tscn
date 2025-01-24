@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://yuduw3icb7jo"]
 
-[ext_resource type="PackedScene" uid="uid://b705wb37c503h" path="res://scenes/tamtam.tscn" id="1_rh8r3"]
+[ext_resource type="PackedScene" uid="uid://b705wb37c503h" path="res://scenes/entity/tamtam.tscn" id="1_rh8r3"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rrw4o"]
 load_path = "res://.godot/imported/terrain.png-02334d89f314a8996b3c48f78734ffd5.ctex"
