@@ -22,6 +22,8 @@ func _ready() -> void:
 	health_bar.set_health(MAX_HEALTH)
 
 func _process(delta: float) -> void:
+	if CURRENT_HEALTH <= 0:
+		queue_free()
 	if player:
 		move_toward_player(delta)
 	else:

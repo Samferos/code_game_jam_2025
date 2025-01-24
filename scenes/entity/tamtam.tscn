@@ -1,63 +1,61 @@
 [gd_scene load_steps=16 format=3 uid="uid://r71e1emmrhv2"]
 
 [ext_resource type="Script" path="res://scripts/tamtam.gd" id="1_lwgyx"]
-[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_45c13"]
+[ext_resource type="Texture2D" uid="uid://df43piis8bt3o" path="res://assets/sprites/tamtam.png" id="2_ud52u"]
+[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_45c13"]
 [ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_lkgw7"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4ex5y"]
-load_path = "res://.godot/imported/tamtam.png-4e910ee9871f17694b471bcc7a457d92.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sb7ub"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmy8n"]
+atlas = ExtResource("2_ud52u")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0jgwm"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy6fb"]
+atlas = ExtResource("2_ud52u")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vbgoq"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv5a4"]
+atlas = ExtResource("2_ud52u")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sdnl8"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr7kh"]
+atlas = ExtResource("2_ud52u")
 region = Rect2(32, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rjwsw"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8duwg"]
+atlas = ExtResource("2_ud52u")
 region = Rect2(64, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4hmsq"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8421"]
+atlas = ExtResource("2_ud52u")
 region = Rect2(0, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6mnhl"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5g5p"]
+atlas = ExtResource("2_ud52u")
 region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_whlma"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sb7ub")
+"texture": SubResource("AtlasTexture_kmy8n")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0jgwm")
+"texture": SubResource("AtlasTexture_dy6fb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vbgoq")
+"texture": SubResource("AtlasTexture_uv5a4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sdnl8")
+"texture": SubResource("AtlasTexture_xr7kh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rjwsw")
+"texture": SubResource("AtlasTexture_8duwg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4hmsq")
+"texture": SubResource("AtlasTexture_r8421")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6mnhl")
+"texture": SubResource("AtlasTexture_k5g5p")
 }],
 "loop": true,
 "name": &"default",
@@ -97,7 +95,8 @@ visibility_layer = 2
 position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_whlma")
 autoplay = "default"
-frame_progress = 0.137915
+frame = 5
+frame_progress = 0.290349
 script = SubResource("GDScript_ame32")
 
 [node name="ProgressBar" parent="AnimatedSprite2D" instance=ExtResource("3_45c13")]
