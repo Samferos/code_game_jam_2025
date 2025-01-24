@@ -9,6 +9,9 @@ position = Vector2(-1, 0)
 
 [node name="player" parent="." instance=ExtResource("1_335aq")]
 
+[node name="cameraTransform" parent="player" index="2"]
+remote_path = NodePath("../../Camera2D")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -19,3 +22,5 @@ debug_color = Color(0, 0, 0, 0.42)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
+
+[editable path="player"]

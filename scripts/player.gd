@@ -10,7 +10,9 @@ const AIR_DRAG_COEF = 0.35
 const GROUND_RES_COEF = 0.25
 const DASH_SPEED = 5
 
-
+@onready var SpriteSheet : AnimatedSprite2D = $sprite
+var State : CharacterStatus
+var FacingDirection : CharacterDirection
 var Velocity : Vector2
 var HoldingWall = false
 
@@ -19,28 +21,27 @@ var HoldingWall = false
 var DashUnlocked = true
 
 
+##
 func Move(direction:Vector2) -> void:
 	
 	if is_on_floor():
 		Velocity += direction * SPEED * RATIO
 		if direction.x > 0:
-			$sprite.play("walk")
-			$sprite.flip_h = false
-
+			FacingDirection = CharacterDirection.RIGHT
+			State = CharacterStatus.WALKING
 		if direction.x<0:
-			$sprite.flip_h = true
-			$sprite.play("walk")
-
+			FacingDirection = CharacterDirection.LEFT
+			State = CharacterStatus.WALKING
 	elif is_on_wall() && direction.is_equal_approx(-get_wall_normal()):
 		HoldingWall = true
 	else:
 		Velocity += direction * SPEED * RATIO * AIR_CONTROL
-	if direction.x==0:
-		$sprite.play("idle")
+
 
 func Jump() -> void:
 	if is_on_floor():
 		Velocity.y = -JUMP_FORCE * RATIO
+		State = CharacterStatus.JUMPING
 	elif is_on_wall():
 		Velocity = (get_wall_normal() + up_direction * 0.9).normalized() * JUMP_FORCE * RATIO
 		
@@ -69,19 +70,59 @@ func _physics_process(delta: float) -> void:
 	velocity = Velocity * delta
 	move_and_slide()
 	
-	if 
-
 	if is_on_wall():
 		Velocity.x = 0
+		
+	if is_on_ceiling():
+		Velocity.y=0
+		
+	if Velocity.y > 0:
+		State = CharacterStatus.FALLING
 
 func _process(_delta) -> void:
-	$sprite.play()
+	if (is_on_floor()):
+		State = CharacterStatus.ONGROUND
 	var direction = Input.get_vector("left","right","up","down")
 	Move(Vector2(direction.x,clampf(direction.y, 0, 1)))
-	if Input.is_action_pressed("jump"):
-		$sprite.play("jump")
+	if Input.is_action_just_pressed("jump"):
 		Jump()
-	if Input.is_action_pressed("dash"):
+	if Input.is_action_just_pressed("dash"):
 		Dash(direction)
-
+		
+	match State:
+		CharacterStatus.FALLING:
+			if SpriteSheet.animation!="fall":
+				if not SpriteSheet.is_playing():
+					SpriteSheet.play("fall")
+				else:
+					SpriteSheet.play("start_fall")
+		CharacterStatus.JUMPING:
+			SpriteSheet.play("jump")
+		CharacterStatus.WALKING:
+			SpriteSheet.play("walk")
+		CharacterStatus.ONGROUND,_:
+			SpriteSheet.play("idle")
+			
+	if FacingDirection == CharacterDirection.LEFT:
+		SpriteSheet.flip_h = true
+	else:
+		SpriteSheet.flip_h = false
 	
+	
+	
+	
+	
+	
+	
+enum CharacterStatus{
+	ONGROUND,
+	WALKING,
+	JUMPING,
+	FALLING,
+	ONWALL
+}
+
+enum CharacterDirection{
+	RIGHT,
+	LEFT
+}
