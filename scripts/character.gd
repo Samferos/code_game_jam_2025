@@ -1,17 +1,17 @@
 extends CharacterBody2D
 class_name Character
 
-var MAX_HEALTH = 100
-var CURRENT_HEALTH = MAX_HEALTH
+@export var MAX_HEALTH = 100
+@export var CURRENT_HEALTH = MAX_HEALTH
+@export var SPEED = 5.0
 
-const SPEED = 5.0
 const RATIO = 1_000
 const RATIO_SQUARED = RATIO*RATIO
-const AIR_CONTROL = 0.14
-const JUMP_FORCE = 29.5
+@export var AIR_CONTROL = 0.14
+@export var JUMP_FORCE = 29.5
 const AIR_DRAG_COEF = 0.42
 const GROUND_RES_COEF = 0.25
-const DASH_SPEED = 5
+@export var DASH_SPEED = 5
 
 var Velocity : Vector2
 var HoldingWall = false

@@ -1,9 +1,6 @@
-extends "res://scripts/character.gd"
+extends Character
 
 class_name Player
-
-
-
 
 
 @onready var SpriteSheet : AnimatedSprite2D = $sprite
@@ -24,9 +21,6 @@ func _on_health_depleted():
 	collision_layer = 0
 	collision_mask = 0
 	
-
-
-
 func _physics_process(delta: float) -> void:
 	
 	var direction = Vector2(int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")), int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up")))
@@ -56,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			FacingDirection = CharacterDirection.RIGHT
 
 	if Input.is_action_just_pressed("dash"):
-		Dash(direction)
+		Dash(direction.normalized())
 	
 	if Input.is_action_just_pressed("slash"):
 		if $slashCooldown.is_stopped():
@@ -115,8 +109,7 @@ func Dash(direction : Vector2) -> void:
 	if cooldown_timer.is_stopped() and DashUnlocked:
 		cooldown_timer.start()
 		Velocity = direction * SPEED * RATIO * DASH_SPEED
-		
-
+	
 enum CharacterStatus{
 	ONGROUND,
 	WALKING,

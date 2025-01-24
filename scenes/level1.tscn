@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
 [ext_resource type="PackedScene" uid="uid://r71e1emmrhv2" path="res://scenes/entity/tamtam.tscn" id="3_jtsc6"]
 [ext_resource type="PackedScene" uid="uid://n2b1jpymwud3" path="res://scenes/terrain/obstacle.tscn" id="4_y35to"]
-[ext_resource type="PackedScene" uid="uid://ce2wportwfvlq" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
+[ext_resource type="PackedScene" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
 
 [node name="Level1" type="Node2D"]
 
@@ -30,7 +30,6 @@ tile_set = ExtResource("1_3u56p")
 
 [node name="player" parent="." instance=ExtResource("2_1gvk2")]
 position = Vector2(58, 613)
-collision_mask = 3
 floor_constant_speed = true
 safe_margin = 0.2
 
