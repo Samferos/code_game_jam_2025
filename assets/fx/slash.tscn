@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://1eiecyj0ad1d"]
+[gd_scene load_steps=10 format=3 uid="uid://1eiecyj0ad1d"]
 
 [ext_resource type="Texture2D" uid="uid://bpnyxaf3jfq0u" path="res://assets/fx/slash.png" id="1_vsmh4"]
+[ext_resource type="Script" path="res://scripts/hurtbox.gd" id="2_3iuas"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bslg3"]
 atlas = ExtResource("1_vsmh4")
@@ -45,7 +46,19 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gm8b7"]
+
 [node name="Slash" type="AnimatedSprite2D"]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_36vmg")
+autoplay = "default"
 frame = 4
 frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_3iuas")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_gm8b7")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="do_damage"]

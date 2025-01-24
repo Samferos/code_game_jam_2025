@@ -4,15 +4,19 @@ class_name Player
 const MAX_HEALTH = 100
 var CURRENT_HEALTH = MAX_HEALTH
 
-const SPEED = 5
+const SPEED = 3.0
 const RATIO = 1_000
 const RATIO_SQUARED = RATIO*RATIO
-const AIR_CONTROL = 0.06
-const JUMP_FORCE = 29.5
-const AIR_DRAG_COEF = 0.35
+const AIR_CONTROL = 0.14
+const JUMP_FORCE = 45
+const AIR_DRAG_COEF = 0.95
 const GROUND_RES_COEF = 0.25
-const DASH_SPEED = 5
+const DASH_SPEED = 7
 
+@onready var SpriteSheet : AnimatedSprite2D = $sprite
+var slash = preload("res://assets/fx/slash.tscn")
+var State : CharacterStatus
+var FacingDirection : CharacterDirection
 var Velocity : Vector2
 var HoldingWall = false
 
@@ -38,25 +42,32 @@ func Move(direction:Vector2) -> void:
 	if is_on_floor():
 		Velocity += direction * SPEED * RATIO
 		if direction.x > 0:
-			$sprite.play("walk")
-			$sprite.flip_h = false
-
+			FacingDirection = CharacterDirection.RIGHT
+			State = CharacterStatus.WALKING
 		if direction.x<0:
-			$sprite.flip_h = true
-			$sprite.play("walk")
-
+			FacingDirection = CharacterDirection.LEFT
+			State = CharacterStatus.WALKING
 	elif is_on_wall() && direction.is_equal_approx(-get_wall_normal()):
+		if direction.x > 0:
+			FacingDirection = CharacterDirection.LEFT
+		else:
+			FacingDirection = CharacterDirection.RIGHT
+		State = CharacterStatus.SLIDING
 		HoldingWall = true
 	else:
 		Velocity += direction * SPEED * RATIO * AIR_CONTROL
-	if direction.x==0:
-		$sprite.play("idle")
+
 
 func Jump() -> void:
 	if is_on_floor():
+		State = CharacterStatus.JUMPING
 		Velocity.y = -JUMP_FORCE * RATIO
-	elif is_on_wall():
+	elif is_on_wall_only():
 		Velocity = (get_wall_normal() + up_direction * 0.9).normalized() * JUMP_FORCE * RATIO
+		if get_wall_normal().x < 0:
+			FacingDirection = CharacterDirection.LEFT
+		else:
+			FacingDirection = CharacterDirection.RIGHT
 		
 func Dash(direction : Vector2) -> void:
 	if cooldown_timer.is_stopped() and DashUnlocked:
@@ -86,15 +97,17 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_wall():
 		Velocity.x = 0
+	elif Velocity.y > 0:
+		State = CharacterStatus.FALLING
 
 func _process(_delta) -> void:
-	$sprite.play()
+	if (is_on_floor()):
+		State = CharacterStatus.ONGROUND
 	var direction = Input.get_vector("left","right","up","down")
 	Move(Vector2(direction.x,clampf(direction.y, 0, 1)))
-	if Input.is_action_pressed("jump"):
-		$sprite.play("jump")
+	if Input.is_action_just_pressed("jump"):
 		Jump()
-	if Input.is_action_pressed("dash"):
+	if Input.is_action_just_pressed("dash"):
 		Dash(direction)
 	if CURRENT_HEALTH <= 0:
 		_on_health_depleted()
@@ -102,3 +115,45 @@ func _process(_delta) -> void:
 	
 
 	
+		
+	match State:
+		CharacterStatus.FALLING:
+			if SpriteSheet.animation!="fall":
+				if not SpriteSheet.is_playing():
+					SpriteSheet.play("fall")
+				else:
+					SpriteSheet.play("start_fall")
+		CharacterStatus.JUMPING:
+			SpriteSheet.play("jump")
+		CharacterStatus.WALKING:
+			SpriteSheet.play("walk")
+		CharacterStatus.SLIDING:
+			SpriteSheet.play("slide")
+		CharacterStatus.ONGROUND,_:
+			SpriteSheet.play("idle")
+			
+	if FacingDirection == CharacterDirection.LEFT:
+		SpriteSheet.flip_h = true
+	else:
+		SpriteSheet.flip_h = false
+	
+	if Input.is_action_just_pressed("slash"):
+		var slash_instance : AnimatedSprite2D = slash.instantiate()
+		add_child(slash_instance)
+		slash_instance.animation_finished.connect(
+			func(): slash_instance.queue_free()
+		)
+	
+enum CharacterStatus{
+	ONGROUND,
+	WALKING,
+	JUMPING,
+	FALLING,
+	ONWALL,
+	SLIDING
+}
+
+enum CharacterDirection{
+	RIGHT,
+	LEFT
+}
