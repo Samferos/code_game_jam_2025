@@ -7,10 +7,6 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4ex5y"]
 load_path = "res://.godot/imported/tamtam.png-4e910ee9871f17694b471bcc7a457d92.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qtfv8"]
-atlas = SubResource("CompressedTexture2D_4ex5y")
-region = Rect2(0, 0, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_sb7ub"]
 atlas = SubResource("CompressedTexture2D_4ex5y")
 region = Rect2(32, 0, 32, 32)
@@ -42,9 +38,6 @@ region = Rect2(32, 64, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_whlma"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qtfv8")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sb7ub")
 }, {
@@ -87,11 +80,15 @@ func _process(delta: float) -> void:
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xl3fr"]
 radius = 5.0
-height = 20.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1c51b"]
+radius = 27.9821
+height = 109.721
 
 [node name="tamtam" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 6
 script = ExtResource("1_lwgyx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -110,8 +107,8 @@ offset_right = 5.0
 offset_bottom = -5.0
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("4_lkgw7")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
@@ -121,14 +118,30 @@ shape = SubResource("CapsuleShape2D_xl3fr")
 [node name="RayCastRight" type="RayCast2D" parent="Area2D"]
 position = Vector2(-1, 0)
 target_position = Vector2(6, 0)
+collision_mask = 2
 
 [node name="RayCastLeft" type="RayCast2D" parent="Area2D"]
 target_position = Vector2(-8, 0)
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-light_mask = 2
-visibility_layer = 2
+[node name="hitzone" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 2)
 shape = SubResource("CapsuleShape2D_xl3fr")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[node name="AgroZone" type="Area2D" parent="."]
+visible = false
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AgroZone"]
+position = Vector2(0, -14)
+rotation = -1.57032
+shape = SubResource("CapsuleShape2D_1c51b")
+
+[node name="TimerDamage" type="Timer" parent="."]
+wait_time = 1.3
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="AgroZone" to="." method="_on_agro_zone_body_entered"]
+[connection signal="body_exited" from="AgroZone" to="." method="_on_agro_zone_body_exited"]
+[connection signal="timeout" from="TimerDamage" to="." method="_on_timer_timeout"]

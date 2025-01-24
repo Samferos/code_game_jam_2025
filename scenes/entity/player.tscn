@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://diafd8q67jpwl"]
+[gd_scene load_steps=20 format=3 uid="uid://diafd8q67jpwl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wklbj"]
-[ext_resource type="Texture2D" uid="uid://chxwjmcmcmwn4" path="res://assets/sprites/carl.png" id="2_b8aac"]
+[ext_resource type="Texture2D" uid="uid://dvwgoovm1xrsp" path="res://assets/sprites/carl.png" id="2_b8aac"]
+[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_i8ui4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g0lnx"]
 radius = 7.0
@@ -134,6 +135,7 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody2D"]
+collision_mask = 3
 script = ExtResource("1_wklbj")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
@@ -142,9 +144,8 @@ shape = SubResource("CapsuleShape2D_g0lnx")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-2, -4)
 sprite_frames = SubResource("SpriteFrames_etclu")
-animation = &"idle"
+animation = &"fall"
 autoplay = "idle"
-frame_progress = 0.144497
 
 [node name="cameraTransform" type="RemoteTransform2D" parent="."]
 remote_path = NodePath("../../Camera2D")
@@ -152,3 +153,15 @@ remote_path = NodePath("../../Camera2D")
 [node name="dashCooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+limit_bottom = 120
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" parent="CanvasLayer" instance=ExtResource("3_i8ui4")]
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 388.0
+offset_bottom = 29.0
