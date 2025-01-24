@@ -8,20 +8,35 @@ const AIR_CONTROL = 0.06
 const JUMP_FORCE = 29.5
 const AIR_DRAG_COEF = 0.35
 const GROUND_RES_COEF = 0.25
+const DASH_SPEED = 5
 
 
 var Velocity : Vector2
 var HoldingWall = false
 
 
+@onready var cooldown_timer = $dashCooldown 
+var DashUnlocked = true
+
+
 func Move(direction:Vector2) -> void:
+	
 	if is_on_floor():
 		Velocity += direction * SPEED * RATIO
-		$sprite.play("walk")
+		if direction.x > 0:
+			$sprite.play("walk")
+			$sprite.flip_h = false
+
+		if direction.x<0:
+			$sprite.flip_h = true
+			$sprite.play("walk")
+
 	elif is_on_wall() && direction.is_equal_approx(-get_wall_normal()):
 		HoldingWall = true
 	else:
 		Velocity += direction * SPEED * RATIO * AIR_CONTROL
+	if direction.x==0:
+		$sprite.play("idle")
 
 func Jump() -> void:
 	if is_on_floor():
@@ -29,6 +44,11 @@ func Jump() -> void:
 	elif is_on_wall():
 		Velocity = (get_wall_normal() + up_direction * 0.9).normalized() * JUMP_FORCE * RATIO
 		
+func Dash(direction : Vector2) -> void:
+	if cooldown_timer.is_stopped() and DashUnlocked:
+		cooldown_timer.start()
+		Velocity = direction * SPEED * RATIO * DASH_SPEED
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -46,9 +66,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		var resistance : Vector2 = Velocity * GROUND_RES_COEF
 		Velocity -= resistance
-
 	velocity = Velocity * delta
 	move_and_slide()
+	
+	if 
 
 	if is_on_wall():
 		Velocity.x = 0
@@ -60,4 +81,7 @@ func _process(_delta) -> void:
 	if Input.is_action_pressed("jump"):
 		$sprite.play("jump")
 		Jump()
+	if Input.is_action_pressed("dash"):
+		Dash(direction)
+
 	

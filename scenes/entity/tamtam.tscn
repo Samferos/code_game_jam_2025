@@ -1,0 +1,134 @@
+[gd_scene load_steps=16 format=3 uid="uid://b705wb37c503h"]
+
+[ext_resource type="Script" path="res://scripts/tamtam.gd" id="1_lwgyx"]
+[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_45c13"]
+[ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_lkgw7"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4ex5y"]
+load_path = "res://.godot/imported/tamtam.png-4e910ee9871f17694b471bcc7a457d92.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtfv8"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb7ub"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jgwm"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbgoq"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdnl8"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjwsw"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hmsq"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mnhl"]
+atlas = SubResource("CompressedTexture2D_4ex5y")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whlma"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtfv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb7ub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jgwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbgoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdnl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjwsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hmsq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mnhl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_ame32"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xl3fr"]
+radius = 5.0
+height = 20.0
+
+[node name="tamtam" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_lwgyx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-1, -4)
+sprite_frames = SubResource("SpriteFrames_whlma")
+autoplay = "default"
+frame_progress = 0.137915
+script = SubResource("GDScript_ame32")
+
+[node name="ProgressBar" parent="AnimatedSprite2D" instance=ExtResource("3_45c13")]
+offset_left = -6.0
+offset_top = -9.0
+offset_right = 5.0
+offset_bottom = -5.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_lkgw7")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 2)
+shape = SubResource("CapsuleShape2D_xl3fr")
+
+[node name="RayCastRight" type="RayCast2D" parent="Area2D"]
+position = Vector2(-1, 0)
+target_position = Vector2(6, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="Area2D"]
+target_position = Vector2(-8, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(-1, 2)
+shape = SubResource("CapsuleShape2D_xl3fr")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
