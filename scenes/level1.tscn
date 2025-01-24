@@ -22,7 +22,9 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAEAAEAAAAAAAEAAAAEAAIAAAAAAAIAAAAEAAA
 tile_set = ExtResource("1_3u56p")
 
 [node name="player" parent="." instance=ExtResource("2_1gvk2")]
+position = Vector2(56, 613)
 floor_constant_speed = true
 
 [node name="Camera2D" type="Camera2D" parent="player"]
+offset = Vector2(0, -5)
 zoom = Vector2(3, 3)

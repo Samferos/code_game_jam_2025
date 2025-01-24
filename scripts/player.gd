@@ -11,17 +11,20 @@ const GROUND_RES_COEF = 0.25
 const DASH_SPEED = 5
 
 @onready var SpriteSheet : AnimatedSprite2D = $sprite
+var slash = preload("res://assets/fx/slash.tscn")
 var State : CharacterStatus
 var FacingDirection : CharacterDirection
 var Velocity : Vector2
 var HoldingWall = false
 
+var health : float
 
 @onready var cooldown_timer = $dashCooldown 
 var DashUnlocked = true
 
+func damage(damage : float):
+	health = health-damage
 
-##
 func Move(direction:Vector2) -> void:
 	
 	if is_on_floor():
@@ -33,6 +36,11 @@ func Move(direction:Vector2) -> void:
 			FacingDirection = CharacterDirection.LEFT
 			State = CharacterStatus.WALKING
 	elif is_on_wall() && direction.is_equal_approx(-get_wall_normal()):
+		if direction.x > 0:
+			FacingDirection = CharacterDirection.LEFT
+		else:
+			FacingDirection = CharacterDirection.RIGHT
+		State = CharacterStatus.SLIDING
 		HoldingWall = true
 	else:
 		Velocity += direction * SPEED * RATIO * AIR_CONTROL
@@ -40,10 +48,14 @@ func Move(direction:Vector2) -> void:
 
 func Jump() -> void:
 	if is_on_floor():
-		Velocity.y = -JUMP_FORCE * RATIO
 		State = CharacterStatus.JUMPING
-	elif is_on_wall():
+		Velocity.y = -JUMP_FORCE * RATIO
+	elif is_on_wall_only():
 		Velocity = (get_wall_normal() + up_direction * 0.9).normalized() * JUMP_FORCE * RATIO
+		if get_wall_normal().x < 0:
+			FacingDirection = CharacterDirection.LEFT
+		else:
+			FacingDirection = CharacterDirection.RIGHT
 		
 func Dash(direction : Vector2) -> void:
 	if cooldown_timer.is_stopped() and DashUnlocked:
@@ -70,13 +82,12 @@ func _physics_process(delta: float) -> void:
 	velocity = Velocity * delta
 	move_and_slide()
 	
-	if is_on_wall():
-		Velocity.x = 0
-		
 	if is_on_ceiling():
 		Velocity.y=0
-		
-	if Velocity.y > 0:
+	
+	if is_on_wall():
+		Velocity.x = 0
+	elif Velocity.y > 0:
 		State = CharacterStatus.FALLING
 
 func _process(_delta) -> void:
@@ -100,6 +111,8 @@ func _process(_delta) -> void:
 			SpriteSheet.play("jump")
 		CharacterStatus.WALKING:
 			SpriteSheet.play("walk")
+		CharacterStatus.SLIDING:
+			SpriteSheet.play("slide")
 		CharacterStatus.ONGROUND,_:
 			SpriteSheet.play("idle")
 			
@@ -108,18 +121,20 @@ func _process(_delta) -> void:
 	else:
 		SpriteSheet.flip_h = false
 	
-	
-	
-	
-	
-	
+	if Input.is_action_just_pressed("slash"):
+		var slash_instance : AnimatedSprite2D = slash.instantiate()
+		add_child(slash_instance)
+		slash_instance.animation_finished.connect(
+			func(): slash_instance.queue_free()
+		)
 	
 enum CharacterStatus{
 	ONGROUND,
 	WALKING,
 	JUMPING,
 	FALLING,
-	ONWALL
+	ONWALL,
+	SLIDING
 }
 
 enum CharacterDirection{
