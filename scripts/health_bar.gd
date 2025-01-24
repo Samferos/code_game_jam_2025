@@ -2,8 +2,10 @@ extends ProgressBar
 
 var MAX_HEALTH = 100
 var CURRENT_HEALTH = MAX_HEALTH
+@onready var timer: Timer = $FadeTimer
 
 func _ready() -> void:
+	visible = false
 	value = MAX_HEALTH
 	update_color()
 
@@ -18,6 +20,8 @@ func update_health(new_health):
 	if CURRENT_HEALTH < 0:
 		CURRENT_HEALTH = 0
 		print("Entity died!")
+	visible = true
+	timer.start()
 	value = CURRENT_HEALTH
 		
 
@@ -30,3 +34,8 @@ func update_color():
 	sb.corner_radius_bottom_left = 8
 	sb.corner_radius_bottom_right = 8
 	add_theme_stylebox_override("fill", sb)
+	
+	
+func _on_timer_timeout() -> void:
+	visible = false
+	timer.stop()
