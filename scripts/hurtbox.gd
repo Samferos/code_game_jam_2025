@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var damage = 0
+@export var damage = 100
 
 func do_damage(target : Node2D):
 	if is_in_group("player"):

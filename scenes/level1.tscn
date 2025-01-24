@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://e0isilo5gdw6"]
+[gd_scene load_steps=4 format=4 uid="uid://e0isilo5gdw6"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_3u56p"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
+[ext_resource type="PackedScene" uid="uid://r71e1emmrhv2" path="res://scenes/entity/tamtam.tscn" id="3_jtsc6"]
 
 [node name="Level1" type="Node2D"]
 
@@ -28,3 +29,10 @@ floor_constant_speed = true
 [node name="Camera2D" type="Camera2D" parent="player"]
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
+limit_bottom = 750
+
+[node name="tamtam" parent="." instance=ExtResource("3_jtsc6")]
+position = Vector2(725, 610)
+
+[node name="tamtam2" parent="." instance=ExtResource("3_jtsc6")]
+position = Vector2(820, 611)
