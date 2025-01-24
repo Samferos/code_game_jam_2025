@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
 
-const SPEED = 5
+const SPEED = 3.0
 const RATIO = 1_000
 const RATIO_SQUARED = RATIO*RATIO
-const AIR_CONTROL = 0.06
-const JUMP_FORCE = 29.5
-const AIR_DRAG_COEF = 0.35
+const AIR_CONTROL = 0.14
+const JUMP_FORCE = 45
+const AIR_DRAG_COEF = 0.95
 const GROUND_RES_COEF = 0.25
-const DASH_SPEED = 5
+const DASH_SPEED = 7
 
 @onready var SpriteSheet : AnimatedSprite2D = $sprite
 var slash = preload("res://assets/fx/slash.tscn")
@@ -81,7 +81,13 @@ func _physics_process(delta: float) -> void:
 		Velocity -= resistance
 	velocity = Velocity * delta
 	move_and_slide()
+<<<<<<< HEAD
 	
+=======
+	if is_on_wall():
+		Velocity.x = 0
+		
+>>>>>>> ab86b50581db35a3e4429d0ef273d0b3f554c02e
 	if is_on_ceiling():
 		Velocity.y=0
 	

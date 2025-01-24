@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="code_game_jam"
+<<<<<<< HEAD
 run/main_scene="res://scenes/level1.tscn"
+=======
+run/main_scene="res://scenes/tour_1.tscn"
+>>>>>>> ab86b50581db35a3e4429d0ef273d0b3f554c02e
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 
