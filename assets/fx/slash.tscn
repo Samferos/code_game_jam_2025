@@ -56,6 +56,7 @@ frame = 4
 frame_progress = 1.0
 
 [node name="Area2D" type="Area2D" parent="." groups=["player"]]
+collision_mask = 5
 script = ExtResource("2_3iuas")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["player"]]
