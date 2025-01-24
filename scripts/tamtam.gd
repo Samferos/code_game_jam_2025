@@ -68,6 +68,7 @@ func _on_agro_zone_body_exited(body: Node2D) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player and body.has_method("take_damage") and timer.is_stopped():
 		body.take_damage(DAMAGE)
+		body.take_knockback(position.move_toward(body.position, 1.0) * 50 * DIRECTION)
 		player_inside = true
 		timer.start()
 		
