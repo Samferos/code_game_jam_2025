@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://r71e1emmrhv2" path="res://scenes/entity/tamtam.tscn" id="3_jtsc6"]
 [ext_resource type="PackedScene" uid="uid://n2b1jpymwud3" path="res://scenes/terrain/obstacle.tscn" id="4_y35to"]
 [ext_resource type="PackedScene" uid="uid://ce2wportwfvlq" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
-[ext_resource type="PackedScene" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
+[ext_resource type="PackedScene" uid="uid://c3kwnj0v7ehi6" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
 [ext_resource type="AudioStream" uid="uid://qjh08ojc20k8" path="res://assets/music/level-1.mp3" id="7_smxjr"]
 
 [sub_resource type="Curve2D" id="Curve2D_6l1yu"]
