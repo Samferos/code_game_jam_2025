@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://diafd8q67jpwl"]
+[gd_scene load_steps=24 format=3 uid="uid://diafd8q67jpwl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wklbj"]
 [ext_resource type="Texture2D" uid="uid://dvwgoovm1xrsp" path="res://assets/sprites/carl.png" id="2_b8aac"]
-[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_dgsgi"]
+[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_dgsgi"]
 [ext_resource type="Script" path="res://scripts/dashbar.gd" id="4_fv3pd"]
+[ext_resource type="Script" path="res://scenes/entity/progress_bar.gd" id="5_orfxl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g0lnx"]
 radius = 8.0
@@ -182,6 +183,9 @@ one_shot = true
 wait_time = 0.25
 one_shot = true
 
+[node name="invisibilityCooldown" type="Timer" parent="."]
+wait_time = 1.3
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="healthbar" parent="HUD" instance=ExtResource("3_dgsgi")]
@@ -222,3 +226,10 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_5wm2l")
 value = 18.03
 show_percentage = false
 script = ExtResource("4_fv3pd")
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD"]
+offset_right = 4.0
+offset_bottom = 27.0
+script = ExtResource("5_orfxl")
+
+[connection signal="timeout" from="invisibilityCooldown" to="." method="_on_invisibility_cooldown_timeout"]

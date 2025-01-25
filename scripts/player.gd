@@ -2,7 +2,6 @@ extends Character
 
 class_name Player
 
-
 @onready var SpriteSheet : AnimatedSprite2D = $sprite
 var slash = preload("res://assets/fx/slash.tscn")
 var State : CharacterStatus
@@ -11,6 +10,8 @@ var FacingDirection : CharacterDirection
 
 @onready var health_bar: ProgressBar = $HUD/healthbar
 @onready var cooldown_timer = $dashCooldown 
+@onready var invisibility_cooldown: Timer = $invisibilityCooldown
+
 var DashUnlocked = true
 
 func _ready() -> void:
@@ -20,11 +21,21 @@ func _ready() -> void:
 func _on_health_depleted():
 	collision_layer = 0
 	collision_mask = 0
-	
+
+func take_damage(damage):
+	if invisibility_cooldown.is_stopped():
+		super.take_damage(damage)
+		health_bar.update_health(CURRENT_HEALTH)
+		
+		
+func take_knockback(kb):
+	if invisibility_cooldown.is_stopped():
+		super.take_knockback(kb)
+		invisibility_cooldown.start()
 func _physics_process(delta: float) -> void:
 	
 	var direction = Vector2(int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")), int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up")))
-	Move((Vector2(direction.x,clampf(direction.y,0,1))))
+	Move(Vector2(direction.x,clampf(direction.y,0,1)))
 	if Velocity.y > 0:
 		State = CharacterStatus.FALLING
 	
@@ -56,9 +67,8 @@ func _physics_process(delta: float) -> void:
 		if $slashCooldown.is_stopped():
 			attack()
 			
-
-	
 	super._physics_process(delta)
+
 
 func _process(_delta) -> void:
 	if CURRENT_HEALTH <= 0:
@@ -85,11 +95,6 @@ func _process(_delta) -> void:
 		SpriteSheet.flip_h = true
 	else:
 		SpriteSheet.flip_h = false
-	
-
-			
-	health_bar.visible = true
-
 
 func attack():
 	$slashCooldown.start()
@@ -104,6 +109,7 @@ func attack():
 	slash_instance.animation_finished.connect(
 		func(): slash_instance.queue_free()
 		)
+	
 
 func Dash(direction : Vector2) -> void:
 	if cooldown_timer.is_stopped() and DashUnlocked:
@@ -123,3 +129,6 @@ enum CharacterDirection{
 	RIGHT,
 	LEFT
 }
+
+func _on_invisibility_cooldown_timeout() -> void:
+	invisibility_cooldown.stop()
