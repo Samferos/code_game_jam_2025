@@ -1,10 +1,10 @@
 extends CharacterBody2D
 class_name Character
 
-var MAX_HEALTH = 100
-var CURRENT_HEALTH = MAX_HEALTH
+@export var MAX_HEALTH = 100
+@export var CURRENT_HEALTH = MAX_HEALTH
 
-const SPEED = 5.0
+@export var SPEED = 5.0
 const RATIO = 1_000
 const RATIO_SQUARED = RATIO*RATIO
 const AIR_CONTROL = 0.14
