@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://r71e1emmrhv2" path="res://scenes/entity/tamtam.tscn" id="3_jtsc6"]
 [ext_resource type="PackedScene" uid="uid://n2b1jpymwud3" path="res://scenes/terrain/obstacle.tscn" id="4_y35to"]
 [ext_resource type="PackedScene" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
-[ext_resource type="PackedScene" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
-[ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="7_8g1mq"]
+[ext_resource type="PackedScene" uid="uid://b7v03myyufujw" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
+[ext_resource type="PackedScene" uid="uid://l0wciligthmy" path="res://scenes/entity/poisson.tscn" id="7_pba06"]
 
 [sub_resource type="Curve2D" id="Curve2D_6l1yu"]
 _data = {
@@ -85,8 +85,8 @@ curve = SubResource("Curve2D_fwtke")
 [node name="tuba" parent="." instance=ExtResource("6_4o4xe")]
 position = Vector2(1191, 19)
 
-[node name="buttrat" parent="." instance=ExtResource("7_8g1mq")]
-position = Vector2(411, 605)
+[node name="poisson" parent="." instance=ExtResource("7_pba06")]
+position = Vector2(350, 611)
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]
