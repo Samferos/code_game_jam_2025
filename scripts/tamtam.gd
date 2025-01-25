@@ -9,7 +9,8 @@ var DAMAGE = 10
 
 var player = null
 var player_inside = null
-
+var item_scene := preload("res://scenes/item.tscn")
+@onready  var main  =  get_node(".")
 @onready var ray_cast_left: RayCast2D = $Area2D/RayCastLeft
 @onready var ray_cast_right: RayCast2D = $Area2D/RayCastRight
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -23,11 +24,21 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if CURRENT_HEALTH <= 0:
+		drop_item()
 		queue_free()
 	if player:
 		move_toward_player(delta)
 	else:
 		patrol(delta)
+	
+func drop_item():
+	var item = item_scene.instantiate()
+	item.position = position
+	item.item_type = 1
+	main.get_parent().add_child(item)
+	print(main.get_parent().get_tree_string_pretty())
+	item.add_to_group("item")
+	
 
 func patrol(delta: float) -> void:
 	if ray_cast_left.is_colliding():
