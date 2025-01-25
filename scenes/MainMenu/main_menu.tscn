@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://l1p68fo1btqa"]
+[gd_scene load_steps=14 format=3 uid="uid://l1p68fo1btqa"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_300a6"]
 [ext_resource type="PackedScene" uid="uid://65mebt7mndue" path="res://scenes/MainMenu/options_menu.tscn" id="2_yhiq6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c1d3fonavx1td" path="res://assets/sprites/towerOfMelodies.png" id="4_lx1th"]
 [ext_resource type="Shader" path="res://scenes/crt.gdshader" id="5_x6xxb"]
 [ext_resource type="AudioStream" uid="uid://bwri0fm13wgyn" path="res://assets/sfx/Blip_Select9.wav" id="6_rvhrr"]
+[ext_resource type="AudioStream" uid="uid://rpesrxw2rcr6" path="res://assets/music/start.mp3" id="7_r846f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7h01"]
 corner_radius_top_left = 64
@@ -303,6 +304,9 @@ mouse_filter = 2
 
 [node name="buttonSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_rvhrr")
+
+[node name="introMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_r846f")
 
 [connection signal="pressed" from="Main_menu/HBoxContainer/VBoxContainer/Start_Button" to="." method="on_start_down"]
 [connection signal="pressed" from="Main_menu/HBoxContainer/VBoxContainer/Options_Button" to="." method="on_options_pressed"]

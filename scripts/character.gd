@@ -39,6 +39,7 @@ func Move(direction: Vector2) -> void:
 
 func Jump() -> void:
 	if is_on_floor():
+		$jumpSound.play()
 		Velocity.y = -JUMP_FORCE * RATIO
 	elif is_on_wall_only():
 		Velocity = (get_wall_normal() + up_direction * 0.9).normalized() * JUMP_FORCE * RATIO

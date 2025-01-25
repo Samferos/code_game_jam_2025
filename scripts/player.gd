@@ -55,7 +55,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		Jump()
 		State = CharacterStatus.JUMPING
-		$jumpSound.play()
 		
 	if is_on_wall_only():
 		State = CharacterStatus.SLIDING
@@ -66,12 +65,11 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("dash"):
 		Dash(direction.normalized())
-		$dashSound.play()
+		
 	
 	if Input.is_action_just_pressed("slash"):
 		if $slashCooldown.is_stopped():
 			attack()
-			$slashSound.play()
 			
 	super._physics_process(delta)
 
@@ -104,6 +102,7 @@ func _process(_delta) -> void:
 
 func attack():
 	$slashCooldown.start()
+	$slashSound.play()
 	var slash_instance: AnimatedSprite2D = slash.instantiate()
 	if FacingDirection == CharacterDirection.RIGHT:
 		slash_instance.flip_h = false
@@ -122,6 +121,7 @@ func Dash(direction: Vector2) -> void:
 		cooldown_timer.start()
 		Velocity = direction * SPEED * RATIO * DASH_SPEED
 		$DashParticles.emitting = true
+		$dashSound.play()
 	
 enum CharacterStatus {
 	ONGROUND,

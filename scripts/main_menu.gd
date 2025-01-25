@@ -11,6 +11,7 @@ extends Control
 func on_start_down() -> void:
 	$buttonSound.play()
 	animation.play("intro")
+	$introMusic.play()
 	await animation.animation_finished
 	get_tree().change_scene_to_packed(start_level)
 	

@@ -17,5 +17,5 @@ func on_slider_value_changed(value: float) -> void:
 
 
 func _on_exit_button_2_pressed() -> void:
-	$buttonSound.play()
+	#$buttonSound.play()
 	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn")

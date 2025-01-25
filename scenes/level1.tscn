@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://e0isilo5gdw6"]
+[gd_scene load_steps=24 format=4 uid="uid://e0isilo5gdw6"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_3u56p"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
@@ -10,11 +10,14 @@
 [ext_resource type="AudioStream" uid="uid://7fti4hit7wg1" path="res://assets/sfx/Jump14.wav" id="5_8yj55"]
 [ext_resource type="AudioStream" uid="uid://d4gs741hft70m" path="res://assets/sfx/Laser_Shoot6.wav" id="6_84hqo"]
 [ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="6_ukv6g"]
-[ext_resource type="PackedScene" path="res://scenes/invblock.tscn" id="7_om663"]
-[ext_resource type="PackedScene" path="res://scenes/entity/poisson.tscn" id="8_n0qlq"]
-[ext_resource type="PackedScene" uid="uid://gt0xna1ogdlp" path="res://scenes/entity/tuba.tscn" id="9_ijmxr"]
 [ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="7_euhvd"]
 [ext_resource type="PackedScene" path="res://scenes/invblock.tscn" id="7_om663"]
+[ext_resource type="AudioStream" uid="uid://qjh08ojc20k8" path="res://assets/music/level-1.mp3" id="7_smxjr"]
+[ext_resource type="PackedScene" uid="uid://dujsb6a1x1f2h" path="res://scenes/entity/poisson.tscn" id="8_n0qlq"]
+[ext_resource type="PackedScene" uid="uid://c3kwnj0v7ehi6" path="res://scenes/entity/tuba.tscn" id="9_ijmxr"]
+[ext_resource type="Shader" path="res://scenes/crt.gdshader" id="9_t0n33"]
+[ext_resource type="Script" path="res://scenes/area_2d.gd" id="14_cmqkb"]
+[ext_resource type="AudioStream" uid="uid://gfqcqr0qv7oi" path="res://assets/music/level-2.mp3" id="16_ggstu"]
 
 [sub_resource type="Curve2D" id="Curve2D_6l1yu"]
 _data = {
@@ -33,6 +36,23 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -100)
 }
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dfbiu"]
+shader = ExtResource("9_t0n33")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
 
 [node name="Level1" type="Node2D"]
 
@@ -65,7 +85,7 @@ tile_set = ExtResource("1_3u56p")
 
 [node name="player" parent="." instance=ExtResource("2_1gvk2")]
 unique_name_in_owner = true
-position = Vector2(2084, -354)
+position = Vector2(67, 609)
 floor_constant_speed = true
 safe_margin = 0.2
 SPEED = 3.75
@@ -107,7 +127,7 @@ curve = SubResource("Curve2D_6l1yu")
 position = Vector2(560, 320)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(2084, -354)
+position = Vector2(67, 609)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
 limit_bottom = 750
@@ -172,8 +192,9 @@ position = Vector2(1127, -324)
 position = Vector2(1126, -345)
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(2016, -286)
+position = Vector2(2022, -365)
 collision_layer = 8
+script = ExtResource("14_cmqkb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_3dsus")
@@ -210,10 +231,29 @@ offset_bottom = -341.0
 text = "merci d'avoir joué"
 horizontal_alignment = 1
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_dfbiu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="music2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_ggstu")
+autoplay = true
+
+[node name="music1Boss" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_smxjr")
+
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]
 [connection signal="body_exited" from="StaticBody2D5" to="player" method="_on_static_body_2d_5_body_exited"]
 [connection signal="body_entered" from="Area2D" to="Background/BackgroundTileMap2" method="show" flags=6 unbinds=1]
+[connection signal="body_entered" from="Area2D" to="music2" method="stop" flags=6 unbinds=1]
+[connection signal="body_entered" from="Area2D" to="music1Boss" method="play" flags=6 unbinds=1]
 [connection signal="died" from="tuba" to="Label" method="show"]
 [connection signal="toggledOff" from="Switch2" to="TileMapLayer2" method="close"]
 [connection signal="toggledOn" from="Switch2" to="TileMapLayer2" method="open"]
@@ -221,4 +261,3 @@ horizontal_alignment = 1
 [editable path="player"]
 [editable path="TileMapLayer"]
 [editable path="TileMapLayer2"]
-[editable path="boss-1-exit"]
