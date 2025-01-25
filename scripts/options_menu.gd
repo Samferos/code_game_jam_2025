@@ -17,4 +17,4 @@ func on_slider_value_changed(value: float) -> void:
 
 
 func _on_exit_button_2_pressed() -> void:
-	get_tree().change_scene_to_packed(main_menu)
+	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn")
