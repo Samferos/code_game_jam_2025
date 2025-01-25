@@ -40,16 +40,13 @@ func drop_item():
 	
 
 func patrol(delta: float) -> void:
-	if ray_cast_left.is_colliding():
-		animated_sprite.flip_h = true
-		DIRECTION = 0.1
-	if ray_cast_right.is_colliding():
-		animated_sprite.flip_h = false
-		DIRECTION = -0.1
+	if is_on_wall():
+		animated_sprite.flip_h = !animated_sprite.flip_h
+		DIRECTION *= -1
 	Move(Vector2(DIRECTION,0))
 
 func move_toward_player(delta: float) -> void:
-	if ray_cast_left.is_colliding() or ray_cast_right.is_colliding():
+	if is_on_wall():
 		patrol(delta)
 	if player.global_position.x < global_position.x:
 		DIRECTION = -0.1 
@@ -78,7 +75,7 @@ func _on_agro_zone_body_exited(body: Node2D) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.take_damage(DAMAGE)
-		body.take_knockback(position.move_toward(body.position, 1.0) * 2000 * DIRECTION)
+		body.take_knockback(position.move_toward(body.position, 1.0) * 1000 * DIRECTION)
 		player_inside = true
 		
 func _on_area_2d_body_exited(body: Node2D) -> void:
