@@ -1,14 +1,7 @@
-[gd_scene load_steps=4 format=4 uid="uid://n2b1jpymwud3"]
+[gd_scene load_steps=3 format=4 uid="uid://n2b1jpymwud3"]
 
-[ext_resource type="TileSet" uid="uid://b6r1g12ofofn" path="res://assets/level1_tileset.tres" id="1_ofiu5"]
+[ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_ofiu5"]
 [ext_resource type="Script" path="res://scripts/obstacle.gd" id="2_v87fs"]
-
-[sub_resource type="Curve2D" id="Curve2D_dmns6"]
-bake_interval = 10.0
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -130)
-}
-point_count = 2
 
 [node name="TileMapLayer" type="TileMapLayer"]
 tile_map_data = PackedByteArray("AAD/////AAAAAAEAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAAAAP//AAACAAEAAAAAAAAAAAACAAEAAAAAAAEAAAACAAEAAAD///7/AAAAAAEAAAAAAP7/AAACAAEAAAD///3/AAAAAAEAAAAAAP3/AAACAAEAAAD///z/AAAAAAAAAAAAAPz/AAACAAAAAAD//wIAAAAAAAEAAAAAAAIAAAACAAEAAAD//wMAAAAAAAIAAAAAAAMAAAACAAIAAAA=")
@@ -16,4 +9,3 @@ tile_set = ExtResource("1_ofiu5")
 script = ExtResource("2_v87fs")
 
 [node name="Path" type="Path2D" parent="."]
-curve = SubResource("Curve2D_dmns6")
