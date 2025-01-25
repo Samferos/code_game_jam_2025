@@ -53,9 +53,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xajqe"]
-size = Vector2(43, 45)
+size = Vector2(29, 38)
 
 [node name="tuba" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_qutel")
 MAX_HEALTH = 300
 CURRENT_HEALTH = 300
@@ -66,10 +68,11 @@ sprite_frames = SubResource("SpriteFrames_fqjgc")
 animation = &"attack"
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, 7.5)
+position = Vector2(-2.5, 10)
 shape = SubResource("RectangleShape2D_xajqe")
 
 [node name="StaticBody2D" parent="." instance=ExtResource("3_5ywet")]
+visible = false
 
 [node name="shocktimer" type="Timer" parent="."]
 wait_time = 3.0

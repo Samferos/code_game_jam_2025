@@ -42,7 +42,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAEAAEAAAAAAAEAAAAEAAIAAAAAAAIAAAAEAAA
 tile_set = ExtResource("1_3u56p")
 
 [node name="player" parent="." instance=ExtResource("2_1gvk2")]
-position = Vector2(58, 613)
+position = Vector2(1092, 160)
 floor_constant_speed = true
 safe_margin = 0.2
 SPEED = 3.75
@@ -67,7 +67,7 @@ curve = SubResource("Curve2D_6l1yu")
 position = Vector2(560, 320)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(58, 613)
+position = Vector2(1092, 160)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
 limit_bottom = 750
@@ -84,6 +84,15 @@ curve = SubResource("Curve2D_fwtke")
 
 [node name="tuba" parent="." instance=ExtResource("6_4o4xe")]
 position = Vector2(1191, 19)
+
+[node name="Marker1" type="Marker2D" parent="tuba"]
+position = Vector2(142, 87)
+
+[node name="Marker2" type="Marker2D" parent="tuba"]
+position = Vector2(-145, 90)
+
+[node name="Marker3" type="Marker2D" parent="tuba"]
+position = Vector2(-2, 8)
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]
