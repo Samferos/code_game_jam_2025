@@ -19,9 +19,9 @@ func _ready() -> void:
 	health_bar.visible = true
 	
 func _on_health_depleted():
-	$deathSound.play()
-	collision_layer = 0
-	collision_mask = 0
+	queue_free()
+	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn")  # Load the main menu	
+	
 
 func take_damage(damage):
 	if invisibility_cooldown.is_stopped():
@@ -137,3 +137,11 @@ enum CharacterDirection{
 
 func _on_invisibility_cooldown_timeout() -> void:
 	invisibility_cooldown.stop()
+
+	
+
+
+func _on_static_body_2d_5_body_exited(body: Node2D) -> void:
+	if body is Player:
+		print("player exited")
+		_on_health_depleted()

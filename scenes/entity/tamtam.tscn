@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/tamtam.gd" id="1_lwgyx"]
 [ext_resource type="Texture2D" uid="uid://df43piis8bt3o" path="res://assets/sprites/tamtam.png" id="2_ud52u"]
-[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_45c13"]
+[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_45c13"]
 [ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_lkgw7"]
 [ext_resource type="PackedScene" uid="uid://bfucm7dcx3vow" path="res://scenes/agro_zone.tscn" id="5_mloca"]
 

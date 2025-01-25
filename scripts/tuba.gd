@@ -6,58 +6,89 @@ var shock = preload("res://assets/fx/shockwave.tscn")
 var speed = 120
 @onready var SpriteSheet = $sprite
 
-var markers = []
-var current_marker_index = 0
+## The spots where the tubaman will jump to.
+@export var JumpSpots: Array
 
-func _ready():
-	# Populate the markers array with marker positions
-	markers = [
-		$Marker3.global_position,
-		$Marker1.global_position,
-		$Marker2.global_position
-	]
-	# Optionally, move the character to the first marker initially
-	global_position = markers[0]
+## The target
+@onready var target: Node2D = %player
+
+var timer = Timer.new()
+var current_activity = activities.values().pick_random()
+var jump_point
+
+var attack_cd = Timer.new()
+
+enum activities {
+	CHASING,
+	SHOOTING,
+	JUMPING
+}
+
+func take_damage(dmg):
+	super.take_damage(dmg)
+	modulate = Color.RED
+	await get_tree().create_timer(0.3).timeout
+	modulate = Color.WHITE
+
+func _enter_tree() -> void:
+	timer.wait_time = (randi() % 3) + 2
+	timer.autostart = true
+	timer.one_shot = false
+	add_child(timer)
+	timer.timeout.connect(
+		func():
+			current_activity = activities.values().pick_random()
+			if (current_activity == activities.JUMPING):
+				jump_point = get_node(JumpSpots.pick_random())
+	)
+	attack_cd.wait_time = 1
+	attack_cd.autostart = false
+	attack_cd.one_shot = true
+	add_child(attack_cd)
 
 func _physics_process(delta: float) -> void:
-	if is_on_floor():
-		State  = CharacterStatus.ONGROUND
-	if current_marker_index < markers.size():
-		# Get the target position
-		var target = markers[current_marker_index]
-		# Calculate direction to target
-		var direction = (target - global_position).normalized()
-		# Move towards the target
-		if $shocktimer.is_stopped():
-			velocity = direction * speed
-			move_and_slide()
-
-		# Check if we reached the target
-		if global_position.distance_to(target) < 5:  # Tolerance for stopping
-			current_marker_index = (current_marker_index+1)%3
-		
+	match current_activity:
+		activities.CHASING:
+			Move((target.position - position).normalized())
+		activities.JUMPING:
+			Jump()
+			Move((jump_point.position - position).normalized())
+		activities.SHOOTING:
+			if (attack_cd.is_stopped()):
+				var shockwave_instance = shock.instantiate()
+				shockwave_instance.velocity = (target.position - position).normalized() * 98
+				shockwave_instance.position = position
+				get_tree().root.add_child(shockwave_instance)
+				attack_cd.start()
+		_:
+			pass
+	super._physics_process(delta)
 	
-		
 func _process(_delta) -> void:
 	if CURRENT_HEALTH <= 0:
 		queue_free()
-		
-	match State:
 
-		CharacterStatus.ATTACK:
-			SpriteSheet.play("attack")
-		CharacterStatus.ONGROUND,_:
-			SpriteSheet.play("idle")
+	if current_activity == activities.SHOOTING:
+		State = CharacterStatus.ATTACK
+	elif is_on_floor():
+		State = CharacterStatus.ONGROUND
 			
 	if FacingDirection == CharacterDirection.LEFT:
 		SpriteSheet.flip_h = true
 	else:
 		SpriteSheet.flip_h = false
-	
 
+	match State:
+
+		CharacterStatus.ATTACK:
+			SpriteSheet.play("attack")
+		CharacterStatus.ONGROUND, _:
+			SpriteSheet.play("idle")
+
+	
 func attack():
 	$shocktimer.start()
-	var shock_instance : AnimatedSprite2D = shock.instance()
+	var shock_instance: AnimatedSprite2D = shock.instance()
 	
 	
 	add_child(shock_instance)
@@ -66,14 +97,12 @@ func attack():
 		)
 	
 
-
-
-enum CharacterStatus{
+enum CharacterStatus {
 	ONGROUND,
 	ATTACK
 }
 
-enum CharacterDirection{
+enum CharacterDirection {
 	RIGHT,
 	LEFT
 }
