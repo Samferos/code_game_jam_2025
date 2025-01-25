@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://e0isilo5gdw6"]
+[gd_scene load_steps=11 format=4 uid="uid://e0isilo5gdw6"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_3u56p"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
 [ext_resource type="PackedScene" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
 [ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="7_8g1mq"]
+[ext_resource type="PackedScene" uid="uid://ce2wportwfvlq" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
+[ext_resource type="PackedScene" uid="uid://c3kwnj0v7ehi6" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
+[ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="7_8g1mq"]
+[ext_resource type="AudioStream" uid="uid://qjh08ojc20k8" path="res://assets/music/level-1.mp3" id="7_smxjr"]
 
 [sub_resource type="Curve2D" id="Curve2D_6l1yu"]
 _data = {
@@ -89,6 +93,9 @@ position = Vector2(1191, 19)
 stream = ExtResource("7_smxjr")
 volume_db = 10.0
 autoplay = true
+
+[node name="buttrat" parent="." instance=ExtResource("7_8g1mq")]
+position = Vector2(411, 605)
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]
