@@ -1,4 +1,4 @@
-extends "res://scripts/character.gd"
+extends Character
 
 class_name Player
 
@@ -61,7 +61,7 @@ func _physics_process(delta: float) -> void:
 			FacingDirection = CharacterDirection.RIGHT
 
 	if Input.is_action_just_pressed("dash"):
-		Dash(direction)
+		Dash(direction.normalized())
 	
 	if Input.is_action_just_pressed("slash"):
 		if $slashCooldown.is_stopped():
@@ -115,8 +115,7 @@ func Dash(direction : Vector2) -> void:
 	if cooldown_timer.is_stopped() and DashUnlocked:
 		cooldown_timer.start()
 		Velocity = direction * SPEED * RATIO * DASH_SPEED
-		
-
+	
 enum CharacterStatus{
 	ONGROUND,
 	WALKING,
