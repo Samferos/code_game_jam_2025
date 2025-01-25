@@ -137,7 +137,7 @@ height = 64.1841
 
 [node name="poisson" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 18
 script = ExtResource("1_u0366")
 MAX_HEALTH = 200
 CURRENT_HEALTH = 200

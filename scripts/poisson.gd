@@ -106,6 +106,6 @@ func _on_attack_timer_timeout() -> void:
 		wave_instance.position = position	
 		get_tree().root.add_child(wave_instance)
 		player.take_damage(DAMAGE)
-		player.take_knockback(position.move_toward(player.position, 1.0) * 1000 * DIRECTION)
+		player.take_knockback(position.move_toward(player.position, 1.0) * 400 * DIRECTION)
 	if !player_inside:
 		State =  EntityStatus.WALK
