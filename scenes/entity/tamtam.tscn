@@ -1,10 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://r71e1emmrhv2"]
+[gd_scene load_steps=18 format=3 uid="uid://r71e1emmrhv2"]
 
 [ext_resource type="Script" path="res://scripts/tamtam.gd" id="1_lwgyx"]
 [ext_resource type="Texture2D" uid="uid://df43piis8bt3o" path="res://assets/sprites/tamtam.png" id="2_ud52u"]
 [ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_45c13"]
 [ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_lkgw7"]
 [ext_resource type="PackedScene" uid="uid://bfucm7dcx3vow" path="res://scenes/agro_zone.tscn" id="5_mloca"]
+[ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="6_63lek"]
+[ext_resource type="AudioStream" uid="uid://c75myapoxhonv" path="res://assets/sfx/Hit_Hurt4.wav" id="7_w3npw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kmy8n"]
 atlas = ExtResource("2_ud52u")
@@ -117,6 +119,12 @@ shape = SubResource("CapsuleShape2D_xl3fr")
 
 [node name="AgroZone" parent="." instance=ExtResource("5_mloca")]
 visible = true
+
+[node name="deathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_63lek")
+
+[node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_w3npw")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

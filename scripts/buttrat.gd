@@ -17,6 +17,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if CURRENT_HEALTH <= 0:
+		$deathSound.play()
 		queue_free()
 	patrol(delta)
 	
@@ -30,6 +31,7 @@ func patrol(delta: float) -> void:
 
 
 func take_damage(damage):
+	$hurtSound.play()
 	super.take_damage(damage)
 	health_bar.update_health(CURRENT_HEALTH)
 

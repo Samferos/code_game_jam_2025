@@ -25,6 +25,7 @@ enum activities {
 }
 
 func take_damage(dmg):
+	$hurtSound.play()
 	super.take_damage(dmg)
 	modulate = Color.RED
 	await get_tree().create_timer(0.3).timeout
@@ -51,6 +52,7 @@ func _physics_process(delta: float) -> void:
 		activities.CHASING:
 			Move((target.position - position).normalized())
 		activities.JUMPING:
+			$jumpSound.play()
 			Jump()
 			Move((jump_point.position - position).normalized())
 		activities.SHOOTING:
@@ -66,6 +68,7 @@ func _physics_process(delta: float) -> void:
 	
 func _process(_delta) -> void:
 	if CURRENT_HEALTH <= 0:
+		$deathSound.play()
 		queue_free()
 
 	if current_activity == activities.SHOOTING:

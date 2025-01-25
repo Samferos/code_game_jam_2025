@@ -19,6 +19,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if CURRENT_HEALTH <= 0:
+		$deathSound.play()
 		drop_item()
 		queue_free()
 	if player:
@@ -56,6 +57,7 @@ func move_toward_player(delta: float) -> void:
 
 
 func take_damage(damage):
+	$hurtSound.play()
 	super.take_damage(damage)
 	health_bar.update_health(CURRENT_HEALTH)
 

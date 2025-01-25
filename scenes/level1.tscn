@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://e0isilo5gdw6"]
+[gd_scene load_steps=15 format=4 uid="uid://e0isilo5gdw6"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_3u56p"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
@@ -7,18 +7,11 @@
 [ext_resource type="AudioStream" uid="uid://cphqdx1tlkof4" path="res://assets/sfx/Jump7.wav" id="4_025ax"]
 [ext_resource type="PackedScene" uid="uid://n2b1jpymwud3" path="res://scenes/terrain/obstacle.tscn" id="4_y35to"]
 [ext_resource type="PackedScene" uid="uid://ce2wportwfvlq" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
-<<<<<<< HEAD
 [ext_resource type="AudioStream" uid="uid://7fti4hit7wg1" path="res://assets/sfx/Jump14.wav" id="5_8yj55"]
 [ext_resource type="AudioStream" uid="uid://d4gs741hft70m" path="res://assets/sfx/Laser_Shoot6.wav" id="6_84hqo"]
 [ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="6_ukv6g"]
 [ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="7_euhvd"]
 [ext_resource type="PackedScene" path="res://scenes/invblock.tscn" id="7_om663"]
-[ext_resource type="PackedScene" uid="uid://c82yppxc776u" path="res://scenes/invblock.tscn" id="7_om663"]
-[ext_resource type="PackedScene" uid="uid://l0wciligthmy" path="res://scenes/entity/poisson.tscn" id="8_n0qlq"]
-=======
-[ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="6_ukv6g"]
-[ext_resource type="PackedScene" uid="uid://x58nruukqym0" path="res://scenes/invblock.tscn" id="7_om663"]
->>>>>>> 82d48e192d58d4422abd3c1c737ea194cab7e2c5
 
 [sub_resource type="Curve2D" id="Curve2D_6l1yu"]
 _data = {
@@ -31,15 +24,6 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -2, -1, 0, 0, 0, 0, 233, -1)
 }
 point_count = 2
-
-[sub_resource type="Curve2D" id="Curve2D_fj1v6"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -148)
-}
-point_count = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8lvds"]
-size = Vector2(4623.12, 2587.5)
 
 [node name="Level1" type="Node2D"]
 
@@ -109,6 +93,7 @@ position = Vector2(560, 320)
 position = Vector2(1867, 94)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
+limit_bottom = 750
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -147,4 +132,3 @@ position = Vector2(534, 80)
 [editable path="player"]
 [editable path="TileMapLayer"]
 [editable path="boss-1-exit"]
-[editable path="TileMapLayer2"]
