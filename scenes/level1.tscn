@@ -22,7 +22,7 @@ _data = {
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8lvds"]
-size = Vector2(3062.25, 43)
+size = Vector2(4623.12, 2587.5)
 
 [node name="Level1" type="Node2D"]
 
@@ -75,7 +75,6 @@ position = Vector2(560, 320)
 position = Vector2(2498, -96)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
-limit_bottom = 750
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
@@ -110,18 +109,10 @@ position = Vector2(534, 80)
 
 [node name="StaticBody2D5" type="Area2D" parent="."]
 position = Vector2(18, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
-position = Vector2(3356.88, 368)
-shape = SubResource("RectangleShape2D_8lvds")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D5"]
-position = Vector2(3401, 144)
-rotation = -1.56543
-shape = SubResource("RectangleShape2D_8lvds")
+collision_layer = 16
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D5"]
-position = Vector2(-1649, 929)
+position = Vector2(1109.56, 665.25)
 shape = SubResource("RectangleShape2D_8lvds")
 
 [node name="StaticBody2D6" parent="." instance=ExtResource("7_om663")]
@@ -153,7 +144,7 @@ position = Vector2(1126, -345)
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]
-[connection signal="body_entered" from="StaticBody2D5" to="player" method="_on_static_body_2d_5_body_entered"]
+[connection signal="body_exited" from="StaticBody2D5" to="player" method="_on_static_body_2d_5_body_exited"]
 
 [editable path="player"]
 [editable path="TileMapLayer"]

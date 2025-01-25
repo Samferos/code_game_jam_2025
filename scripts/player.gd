@@ -134,7 +134,10 @@ enum CharacterDirection{
 func _on_invisibility_cooldown_timeout() -> void:
 	invisibility_cooldown.stop()
 
+	
 
-func _on_static_body_2d_5_body_entered(body: Node2D) -> void:
+
+func _on_static_body_2d_5_body_exited(body: Node2D) -> void:
 	if body is Player:
-		take_damage(999999)
+		print("player exited")
+		_on_health_depleted()
