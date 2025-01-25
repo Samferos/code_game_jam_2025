@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://e0isilo5gdw6"]
+[gd_scene load_steps=13 format=4 uid="uid://e0isilo5gdw6"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_3u56p"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c3kwnj0v7ehi6" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
 [ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="7_8g1mq"]
 [ext_resource type="AudioStream" uid="uid://qjh08ojc20k8" path="res://assets/music/level-1.mp3" id="7_smxjr"]
+[ext_resource type="Shader" path="res://scenes/crt.gdshader" id="9_t0n33"]
 
 [sub_resource type="Curve2D" id="Curve2D_6l1yu"]
 _data = {
@@ -20,6 +21,23 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -2, -1, 0, 0, 0, 0, 233, -1)
 }
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kayvy"]
+shader = ExtResource("9_t0n33")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
 
 [node name="Level1" type="Node2D"]
 
@@ -93,6 +111,16 @@ autoplay = true
 
 [node name="buttrat" parent="." instance=ExtResource("7_8g1mq")]
 position = Vector2(411, 605)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_kayvy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]
