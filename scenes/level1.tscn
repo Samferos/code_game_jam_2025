@@ -97,18 +97,23 @@ remote_path = NodePath("../../Camera2D")
 position = Vector2(-1867, -94)
 stream = ExtResource("3_084k0")
 volume_db = 10.0
+bus = &"SFX"
 
 [node name="jumpSound" type="AudioStreamPlayer2D" parent="player"]
 stream = ExtResource("4_025ax")
+bus = &"SFX"
 
 [node name="dashSound" type="AudioStreamPlayer2D" parent="player"]
 stream = ExtResource("5_8yj55")
+bus = &"SFX"
 
 [node name="slashSound" type="AudioStreamPlayer2D" parent="player"]
 stream = ExtResource("6_84hqo")
+bus = &"SFX"
 
 [node name="deathSound" type="AudioStreamPlayer2D" parent="player"]
 stream = ExtResource("7_euhvd")
+bus = &"SFX"
 
 [node name="tamtam" parent="." instance=ExtResource("3_jtsc6")]
 position = Vector2(725, 612)
@@ -244,9 +249,11 @@ grow_vertical = 2
 [node name="music2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_ggstu")
 autoplay = true
+bus = &"Music"
 
 [node name="music1Boss" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_smxjr")
+bus = &"Music"
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]

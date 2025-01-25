@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d4mij68nfkfa5" path="res://assets/sprites/tuba.png" id="2_oiijx"]
 [ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="3_umq7o"]
 [ext_resource type="AudioStream" uid="uid://c75myapoxhonv" path="res://assets/sfx/Hit_Hurt4.wav" id="4_w3o86"]
-[ext_resource type="AudioStream" uid="uid://7fti4hit7wg1" path="res://assets/sfx/Jump14.wav" id="5_s7580"]
+[ext_resource type="AudioStream" uid="uid://cphqdx1tlkof4" path="res://assets/sfx/Jump7.wav" id="5_x4kur"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rg8wf"]
 atlas = ExtResource("2_oiijx")
@@ -80,9 +80,12 @@ one_shot = true
 
 [node name="deathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_umq7o")
+bus = &"SFX"
 
 [node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_w3o86")
+bus = &"SFX"
 
 [node name="jumpSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_s7580")
+stream = ExtResource("5_x4kur")
+bus = &"SFX"

@@ -276,6 +276,7 @@ text = "START
 [node name="Options_Button" type="Button" parent="Main_menu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
+disabled = true
 text = "OPTIONS
 "
 
@@ -304,6 +305,7 @@ mouse_filter = 2
 
 [node name="buttonSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_rvhrr")
+bus = &"SFX"
 
 [node name="introMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_r846f")
