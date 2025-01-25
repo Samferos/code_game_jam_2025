@@ -19,8 +19,9 @@ func _ready() -> void:
 	health_bar.visible = true
 	
 func _on_health_depleted():
-	collision_layer = 0
-	collision_mask = 0
+	queue_free()
+	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn")  # Load the main menu	
+	
 
 func take_damage(damage):
 	if invisibility_cooldown.is_stopped():

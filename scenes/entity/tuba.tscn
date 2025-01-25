@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/tuba.gd" id="1_qutel"]
 [ext_resource type="Texture2D" uid="uid://d4mij68nfkfa5" path="res://assets/sprites/tuba.png" id="2_oiijx"]
-[ext_resource type="PackedScene" path="res://assets/fx/shockwave.tscn" id="3_5ywet"]
+[ext_resource type="PackedScene" uid="uid://dkeqf3r3jmgng" path="res://assets/fx/shockwave.tscn" id="3_5ywet"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rg8wf"]
 atlas = ExtResource("2_oiijx")

@@ -101,9 +101,11 @@ enum EntityStatus{
 
 func _on_attack_timer_timeout() -> void:
 	if player:
-		var wave_instance : AnimatedSprite2D = waveshock.instantiate()
-		animated_sprite.flip_h = !animated_sprite.flip_h
-		wave_instance.tranlate(Vector2(DIRECTION*150,0))
+		var wave_instance = waveshock.instantiate()
+		wave_instance.velocity = (player.position - position).normalized() * 350
+		wave_instance.position = position	
+		get_tree().root.add_child(wave_instance)
 		player.take_damage(DAMAGE)
+		player.take_knockback(position.move_toward(player.position, 1.0) * 1000 * DIRECTION)
 	if !player_inside:
 		State =  EntityStatus.WALK
