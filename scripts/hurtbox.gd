@@ -8,3 +8,4 @@ func do_damage(target : Node2D):
 			target.take_damage(damage)
 			target.take_knockback(Vector2(target.DIRECTION*10*-50000,0))
 			
+	

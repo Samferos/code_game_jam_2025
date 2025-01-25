@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
 [ext_resource type="PackedScene" uid="uid://r71e1emmrhv2" path="res://scenes/entity/tamtam.tscn" id="3_jtsc6"]
 [ext_resource type="PackedScene" uid="uid://n2b1jpymwud3" path="res://scenes/terrain/obstacle.tscn" id="4_y35to"]
-[ext_resource type="PackedScene" uid="uid://ce2wportwfvlq" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
+[ext_resource type="PackedScene" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
 [ext_resource type="PackedScene" path="res://scenes/entity/tuba.tscn" id="6_4o4xe"]
-[ext_resource type="AudioStream" uid="uid://qjh08ojc20k8" path="res://assets/music/level-1.mp3" id="7_smxjr"]
+[ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="7_8g1mq"]
 
 [sub_resource type="Curve2D" id="Curve2D_6l1yu"]
 _data = {
@@ -72,7 +72,6 @@ position = Vector2(58, 613)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
 limit_bottom = 750
-position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="boss-1-exit" parent="." instance=ExtResource("4_y35to")]

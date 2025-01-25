@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=4 uid="uid://cgtt0uucufqxm"]
 
-[ext_resource type="TileSet" uid="uid://b6r1g12ofofn" path="res://assets/level1_tileset.tres" id="1_n2rjs"]
+[ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_n2rjs"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_k7tyl"]
 
 [node name="tour1" type="TileMapLayer"]
