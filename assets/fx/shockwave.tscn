@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkeqf3r3jmgng"]
+[gd_scene load_steps=12 format=3 uid="uid://dkeqf3r3jmgng"]
 
 [ext_resource type="Texture2D" uid="uid://bg13m8apbrtl1" path="res://assets/fx/shockwave.png" id="1_5cgdi"]
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_cy4uw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ej4b"]
 radius = 11.0
@@ -64,10 +65,12 @@ animations = [{
 
 [node name="StaticBody2D" type="Area2D"]
 collision_layer = 4
+script = ExtResource("1_cy4uw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4ej4b")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0gjf8")
-frame_progress = 0.913674
+autoplay = "default"
+frame_progress = 0.173148
