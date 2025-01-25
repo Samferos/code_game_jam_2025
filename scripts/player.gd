@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	if Velocity.y > 0:
 		State = CharacterStatus.FALLING
 	
-	if is_on_floor_only():
+	if is_on_floor():
 		State = CharacterStatus.ONGROUND
 	if is_on_floor_only():
 		if not is_zero_approx(direction.x):

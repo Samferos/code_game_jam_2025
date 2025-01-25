@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://c3kwnj0v7ehi6"]
+
+[ext_resource type="Script" path="res://scripts/tuba.gd" id="1_qutel"]
+[ext_resource type="Texture2D" uid="uid://d4mij68nfkfa5" path="res://assets/sprites/tuba.png" id="2_oiijx"]
+[ext_resource type="PackedScene" path="res://assets/fx/shockwave.tscn" id="3_5ywet"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rg8wf"]
+atlas = ExtResource("2_oiijx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjwc7"]
+atlas = ExtResource("2_oiijx")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt4bw"]
+atlas = ExtResource("2_oiijx")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cymvf"]
+atlas = ExtResource("2_oiijx")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n3ig"]
+atlas = ExtResource("2_oiijx")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fqjgc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg8wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjwc7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vt4bw")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cymvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3n3ig")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xajqe"]
+size = Vector2(43, 45)
+
+[node name="tuba" type="CharacterBody2D"]
+script = ExtResource("1_qutel")
+MAX_HEALTH = 300
+CURRENT_HEALTH = 300
+SPEED = 100.0
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fqjgc")
+animation = &"attack"
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 7.5)
+shape = SubResource("RectangleShape2D_xajqe")
+
+[node name="StaticBody2D" parent="." instance=ExtResource("3_5ywet")]
+
+[node name="shocktimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
