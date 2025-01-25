@@ -74,3 +74,5 @@ shape = SubResource("CircleShape2D_4ej4b")
 sprite_frames = SubResource("SpriteFrames_0gjf8")
 autoplay = "default"
 frame_progress = 0.33864
+
+[connection signal="body_entered" from="." to="." method="damage_collider"]

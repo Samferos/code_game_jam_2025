@@ -5,6 +5,8 @@ class_name Character
 @export var CURRENT_HEALTH = MAX_HEALTH
 @export var SPEED = 5.0
 
+signal died
+
 const RATIO = 1_000
 const RATIO_SQUARED = RATIO * RATIO
 @export var AIR_CONTROL = 0.14

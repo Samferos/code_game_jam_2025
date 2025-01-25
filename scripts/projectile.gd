@@ -8,3 +8,7 @@ func _enter_tree() -> void:
 
 func _physics_process(delta):
 	translate(velocity * delta)
+
+func damage_collider(body: Node2D) -> void:
+	if body is Player:
+		body.take_damage(20)

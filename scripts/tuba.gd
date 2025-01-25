@@ -52,7 +52,8 @@ func _physics_process(delta: float) -> void:
 			Move((target.position - position).normalized())
 		activities.JUMPING:
 			Jump()
-			Move((jump_point.position - position).normalized())
+			if jump_point:
+				Move((jump_point.position - position).normalized())
 		activities.SHOOTING:
 			if (attack_cd.is_stopped()):
 				var shockwave_instance = shock.instantiate()
@@ -66,6 +67,7 @@ func _physics_process(delta: float) -> void:
 	
 func _process(_delta) -> void:
 	if CURRENT_HEALTH <= 0:
+		died.emit()
 		queue_free()
 
 	if current_activity == activities.SHOOTING:
