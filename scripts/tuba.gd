@@ -3,6 +3,7 @@ extends Character
 var State = CharacterStatus
 var FacingDirection
 var shock = preload("res://assets/fx/shockwave.tscn")
+var speed = 120
 @onready var SpriteSheet = $sprite
 
 ## The spots where the tubaman will jump to.

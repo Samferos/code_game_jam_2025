@@ -52,7 +52,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xajqe"]
-size = Vector2(43, 45)
+size = Vector2(29, 38)
 
 [node name="tuba" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
@@ -68,7 +68,7 @@ animation = &"attack"
 autoplay = "idle"
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, 7.5)
+position = Vector2(-2.5, 10)
 shape = SubResource("RectangleShape2D_xajqe")
 
 [node name="shocktimer" type="Timer" parent="."]

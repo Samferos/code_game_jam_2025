@@ -18,6 +18,7 @@ func on_exit_pressed() -> void:
 	
 func on_options_pressed() -> void:
 	get_tree().change_scene_to_packed(option_menu)
+
 	
 func on_exit_options_menu() -> void:
-	get_tree().change_scene_to_packed(main_menu)
+	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn")
