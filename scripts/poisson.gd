@@ -1,32 +1,44 @@
 extends Character
-class_name Enemy
 
 var DIRECTION = 0.1
-var DAMAGE = 10
+var DAMAGE = 50
 
 var player : Player = null
 var player_inside = null
 var item_scene := preload("res://scenes/item.tscn")
+var waveshock := preload("res://assets/fx/shockwave.tscn")
 @onready  var main  =  get_node(".")
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar = $AnimatedSprite2D/ProgressBar
 @onready var area_2d: Area2D = $Area2D
+var State : EntityStatus
+@onready var attack_timer: Timer = $AttackTimer
+
 
 
 func _ready() -> void:
 	animated_sprite.flip_h = true
 	health_bar.set_health(MAX_HEALTH)
+	State = EntityStatus.WALK
+
 
 func _process(delta: float) -> void:
 	if CURRENT_HEALTH <= 0:
 		drop_item()
 		queue_free()
-	if player:
-		move_toward_player(delta)
-	else:
-		patrol(delta)
 	if player_inside:
 		_on_area_2d_body_entered(player)
+	match State:
+		EntityStatus.WALK:
+			animated_sprite.play("walk")
+			if player:
+				move_toward_player(delta)
+			else:
+				patrol(delta)
+		EntityStatus.ATTACK:
+			animated_sprite.play("attack")
+			if attack_timer.is_stopped():
+				attack_timer.start()
 	
 func drop_item():
 	var item = item_scene.instantiate()
@@ -72,12 +84,28 @@ func _on_agro_zone_body_exited(body: Node2D) -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player:
-		body.take_damage(DAMAGE)
-		body.take_knockback(position.move_toward(body.position, 1.0) * 500 * DIRECTION)
+		State = EntityStatus.ATTACK
 		player_inside = true
 		
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is Player:
+		State = EntityStatus.WALK
 		player_inside = false
+		attack_timer.stop()
 
+enum EntityStatus{
+	WALK,
+	ATTACK
+}
 	
+
+func _on_attack_timer_timeout() -> void:
+	if player:
+		var wave_instance = waveshock.instantiate()
+		wave_instance.velocity = (player.position - position).normalized() * 350
+		wave_instance.position = position	
+		get_tree().root.add_child(wave_instance)
+		player.take_damage(DAMAGE)
+		player.take_knockback(position.move_toward(player.position, 1.0) * 400 * DIRECTION)
+	if !player_inside:
+		State =  EntityStatus.WALK
