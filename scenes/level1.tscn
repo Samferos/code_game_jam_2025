@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://e0isilo5gdw6"]
+[gd_scene load_steps=7 format=4 uid="uid://e0isilo5gdw6"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_3u56p"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
 [ext_resource type="PackedScene" uid="uid://r71e1emmrhv2" path="res://scenes/entity/tamtam.tscn" id="3_jtsc6"]
 [ext_resource type="PackedScene" uid="uid://n2b1jpymwud3" path="res://scenes/terrain/obstacle.tscn" id="4_y35to"]
 [ext_resource type="PackedScene" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
+[ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="6_rke5e"]
 
 [node name="Level1" type="Node2D"]
 
@@ -37,7 +38,7 @@ safe_margin = 0.2
 remote_path = NodePath("../../Camera2D")
 
 [node name="tamtam" parent="." instance=ExtResource("3_jtsc6")]
-position = Vector2(340, 605)
+position = Vector2(661, 516)
 
 [node name="tamtam2" parent="." instance=ExtResource("3_jtsc6")]
 position = Vector2(820, 612)
@@ -54,8 +55,10 @@ position = Vector2(58, 613)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
 limit_bottom = 750
-position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="buttrat" parent="." instance=ExtResource("6_rke5e")]
+position = Vector2(171, 611)
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
 [connection signal="toggledOn" from="Switch" to="TileMapLayer" method="open"]
