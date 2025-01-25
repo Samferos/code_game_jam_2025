@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://de0qoqdg5bipe"]
+[gd_scene load_steps=12 format=3 uid="uid://de0qoqdg5bipe"]
 
 [ext_resource type="Script" path="res://scripts/buttrat.gd" id="1_2fcn7"]
 [ext_resource type="Texture2D" uid="uid://y0htphihign5" path="res://assets/sprites/buttrat.png" id="2_1cxhs"]
-[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_jyc4w"]
+[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_jyc4w"]
 [ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_l6gpn"]
+[ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="5_0os3w"]
+[ext_resource type="AudioStream" uid="uid://c75myapoxhonv" path="res://assets/sfx/Hit_Hurt4.wav" id="6_op7cl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lu4xb"]
 atlas = ExtResource("2_1cxhs")
@@ -83,3 +85,9 @@ shape = SubResource("CapsuleShape2D_xtvla")
 position = Vector2(4, -2)
 rotation = -2.00156
 shape = SubResource("CapsuleShape2D_xtvla")
+
+[node name="deathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_0os3w")
+
+[node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_op7cl")

@@ -1,10 +1,12 @@
-[gd_scene load_steps=23 format=3 uid="uid://l0wciligthmy"]
+[gd_scene load_steps=25 format=3 uid="uid://dujsb6a1x1f2h"]
 
 [ext_resource type="Script" path="res://scripts/poisson.gd" id="1_u0366"]
 [ext_resource type="Texture2D" uid="uid://b3x7situ8opjy" path="res://assets/sprites/poisson.png" id="2_5ufbi"]
 [ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_elttu"]
 [ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_63yv2"]
 [ext_resource type="PackedScene" uid="uid://bfucm7dcx3vow" path="res://scenes/agro_zone.tscn" id="5_xs183"]
+[ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="6_0ixcy"]
+[ext_resource type="AudioStream" uid="uid://c75myapoxhonv" path="res://assets/sfx/Hit_Hurt4.wav" id="7_k1vha"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vuvq7"]
 atlas = ExtResource("2_5ufbi")
@@ -183,6 +185,12 @@ rotation = -0.0409633
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.35
+
+[node name="deathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_0ixcy")
+
+[node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_k1vha")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -28,12 +28,13 @@ func take_damage(damage):
 	if invisibility_cooldown.is_stopped():
 		super.take_damage(damage)
 		health_bar.update_health(CURRENT_HEALTH)
-		
-		
+		$hurtSound.play()
+
 func take_knockback(kb):
 	if invisibility_cooldown.is_stopped():
 		super.take_knockback(kb)
 		invisibility_cooldown.start()
+
 func _physics_process(delta: float) -> void:
 	
 	var direction = Vector2(int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")), int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up")))
@@ -54,6 +55,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		Jump()
 		State = CharacterStatus.JUMPING
+		$jumpSound.play()
 		
 	if is_on_wall_only():
 		State = CharacterStatus.SLIDING
@@ -64,10 +66,12 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("dash"):
 		Dash(direction.normalized())
+		$dashSound.play()
 	
 	if Input.is_action_just_pressed("slash"):
 		if $slashCooldown.is_stopped():
 			attack()
+			$slashSound.play()
 			
 	super._physics_process(delta)
 
