@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3kwnj0v7ehi6"]
+[gd_scene load_steps=11 format=3 uid="uid://c3kwnj0v7ehi6"]
 
 [ext_resource type="Script" path="res://scripts/tuba.gd" id="1_qutel"]
 [ext_resource type="Texture2D" uid="uid://d4mij68nfkfa5" path="res://assets/sprites/tuba.png" id="2_oiijx"]
+[ext_resource type="PackedScene" path="res://assets/fx/shockwave.tscn" id="3_5ywet"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rg8wf"]
 atlas = ExtResource("2_oiijx")
@@ -59,9 +60,6 @@ script = ExtResource("1_qutel")
 MAX_HEALTH = 300
 CURRENT_HEALTH = 300
 SPEED = 100.0
-AIR_CONTROL = null
-JUMP_FORCE = null
-DASH_SPEED = null
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fqjgc")
@@ -70,3 +68,9 @@ animation = &"attack"
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-2.5, 7.5)
 shape = SubResource("RectangleShape2D_xajqe")
+
+[node name="StaticBody2D" parent="." instance=ExtResource("3_5ywet")]
+
+[node name="shocktimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
