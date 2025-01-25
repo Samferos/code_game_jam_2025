@@ -1,10 +1,168 @@
-[gd_scene load_steps=5 format=3 uid="uid://l1p68fo1btqa"]
+[gd_scene load_steps=12 format=3 uid="uid://l1p68fo1btqa"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_300a6"]
-[ext_resource type="Texture2D" uid="uid://bynsmnqbif3w8" path="res://assets/background/Background_space.png" id="1_u8qwj"]
 [ext_resource type="PackedScene" uid="uid://65mebt7mndue" path="res://scenes/MainMenu/options_menu.tscn" id="2_yhiq6"]
+[ext_resource type="Texture2D" uid="uid://cowcp3nywhvst" path="res://assets/sprites/intro.png" id="3_vkks0"]
+[ext_resource type="Texture2D" uid="uid://c1d3fonavx1td" path="res://assets/sprites/towerOfMelodies.png" id="4_lx1th"]
+[ext_resource type="Shader" path="res://scenes/crt.gdshader" id="5_x6xxb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7h01"]
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
 
 [sub_resource type="Theme" id="Theme_k21cm"]
+
+[sub_resource type="Animation" id="Animation_4md7h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../MarginContainer/AspectRatioContainer/Panel/SplashScreen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../MarginContainer/AspectRatioContainer/Panel/SplashScreen:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Main_menu:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_h5wiu"]
+resource_name = "intro"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3937)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 0.594603),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../MarginContainer/AspectRatioContainer/Panel/SplashScreen:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4.53333, 6.33333, 8.26667, 9.93333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../MarginContainer/AspectRatioContainer/Panel/SplashScreen:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 4.53333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Main_menu:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8kn6"]
+_data = {
+"RESET": SubResource("Animation_4md7h"),
+"intro": SubResource("Animation_h5wiu")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bitoh"]
+shader = ExtResource("5_x6xxb")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.3
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -24,17 +182,53 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 1142.0
 offset_bottom = 638.0
+mouse_filter = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 4608.0
+grow_horizontal = 2
+texture = ExtResource("3_vkks0")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_u8qwj")
+mouse_filter = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer/AspectRatioContainer"]
+clip_children = 1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m7h01")
+
+[node name="SplashScreen" type="TextureRect" parent="MarginContainer/AspectRatioContainer/Panel"]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_lx1th")
+stretch_mode = 5
+
+[node name="Main_menu" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,56 +240,66 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main_menu"]
 layout_mode = 2
 theme_override_constants/separation = 60
 
-[node name="Separator" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Separator" type="Control" parent="Main_menu/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Main_menu/VBoxContainer"]
 modulate = Color(0.909804, 1, 1, 1)
 layout_mode = 2
 theme = SubResource("Theme_k21cm")
 theme_override_font_sizes/font_size = 60
-text = "TITRE DU JEU 
-"
+text = "L'Ôde aux étoiles"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main_menu"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main_menu/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme_override_constants/separation = 20
 
-[node name="Separator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Start_Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Start_Button" type="Button" parent="Main_menu/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "START
 "
 
-[node name="Separator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="Options_Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Options_Button" type="Button" parent="Main_menu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "OPTIONS
 "
 
-[node name="Separator4" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="Exit_Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Exit_Button" type="Button" parent="Main_menu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "EXIT
 "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Background")
+libraries = {
+"": SubResource("AnimationLibrary_c8kn6")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_bitoh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="Main_menu/HBoxContainer/VBoxContainer/Start_Button" to="." method="on_start_down"]
+[connection signal="pressed" from="Main_menu/HBoxContainer/VBoxContainer/Options_Button" to="." method="on_options_pressed"]
+[connection signal="pressed" from="Main_menu/HBoxContainer/VBoxContainer/Exit_Button" to="." method="on_exit_pressed"]

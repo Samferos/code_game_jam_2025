@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/options_menu.gd" id="1_obmkw"]
 [ext_resource type="Texture2D" uid="uid://bynsmnqbif3w8" path="res://assets/background/Background_space.png" id="2_2q8o7"]
-[ext_resource type="AudioStream" uid="uid://dnk36adon0wgp" path="res://assets/music/menu.mp3" id="3_kwtxu"]
+[ext_resource type="AudioStream" uid="uid://cdkt6c727fnxa" path="res://assets/music/menu.mp3" id="3_kwtxu"]
 
 [sub_resource type="SystemFont" id="SystemFont_ldhyf"]
 subpixel_positioning = 0
@@ -75,7 +75,7 @@ text = "EXIT
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_kwtxu")
-volume_db = -24.143
+volume_db = -32.452
 autoplay = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Exit_Button2" to="." method="_on_exit_button_2_pressed"]
