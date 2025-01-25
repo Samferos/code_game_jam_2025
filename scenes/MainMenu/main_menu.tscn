@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://l1p68fo1btqa"]
+[gd_scene load_steps=6 format=3 uid="uid://l1p68fo1btqa"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_300a6"]
 [ext_resource type="Texture2D" uid="uid://bynsmnqbif3w8" path="res://assets/background/Background_space.png" id="1_u8qwj"]
 [ext_resource type="PackedScene" uid="uid://65mebt7mndue" path="res://scenes/MainMenu/options_menu.tscn" id="2_yhiq6"]
+[ext_resource type="AudioStream" uid="uid://cdkt6c727fnxa" path="res://assets/music/menu.mp3" id="4_u3yuf"]
 
 [sub_resource type="Theme" id="Theme_k21cm"]
 
@@ -99,3 +100,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "EXIT
 "
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_u3yuf")
+volume_db = 10.0
+autoplay = true
