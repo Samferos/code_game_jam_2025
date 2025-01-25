@@ -115,6 +115,7 @@ func Dash(direction : Vector2) -> void:
 	if cooldown_timer.is_stopped() and DashUnlocked:
 		cooldown_timer.start()
 		Velocity = direction * SPEED * RATIO * DASH_SPEED
+		$DashParticles.emitting = true
 	
 enum CharacterStatus{
 	ONGROUND,
