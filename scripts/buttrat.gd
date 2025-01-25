@@ -17,18 +17,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if CURRENT_HEALTH <= 0:
-		drop_item()
 		queue_free()
 	patrol(delta)
 	
-func drop_item():
-	var item = item_scene.instantiate()
-	item.position = position
-	item.item_type = 1
-	main.get_parent().add_child(item)
-	print(main.get_parent().get_tree_string_pretty())
-	item.add_to_group("item")
-	
+
 
 func patrol(delta: float) -> void:
 	if is_on_wall():

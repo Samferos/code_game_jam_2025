@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/buttrat.gd" id="1_2fcn7"]
 [ext_resource type="Texture2D" uid="uid://y0htphihign5" path="res://assets/sprites/buttrat.png" id="2_1cxhs"]
-[ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_jyc4w"]
+[ext_resource type="PackedScene" path="res://scenes/health_bar.tscn" id="3_jyc4w"]
 [ext_resource type="Script" path="res://scripts/area_2d_tamtam.gd" id="4_l6gpn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lu4xb"]
@@ -47,8 +47,11 @@ height = 18.0
 
 [node name="buttrat" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 18
 script = ExtResource("1_2fcn7")
+MAX_HEALTH = 1
+CURRENT_HEALTH = 1
+SPEED = 25.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 light_mask = 2
