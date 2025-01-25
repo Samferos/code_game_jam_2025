@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg13m8apbrtl1"
-path="res://.godot/imported/shockwave.png-4eb5f49904bb35d48f27afe85d40a51e.ctex"
+uid="uid://cbharccu70d71"
+path="res://.godot/imported/coffee_mug.png-74c517d67ace1e26aadb0e558305958f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/shockwave.png"
-dest_files=["res://.godot/imported/shockwave.png-4eb5f49904bb35d48f27afe85d40a51e.ctex"]
+source_file="res://assets/sprites/coffee_mug.png"
+dest_files=["res://.godot/imported/coffee_mug.png-74c517d67ace1e26aadb0e558305958f.ctex"]
 
 [params]
 

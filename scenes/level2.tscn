@@ -21,6 +21,8 @@ tile_set = ExtResource("1_b0m3d")
 
 [node name="player" parent="." instance=ExtResource("2_bvhow")]
 position = Vector2(-45, -90)
+CURRENT_HEALTH = 100
+SPEED = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 offset = Vector2(0, -5)
