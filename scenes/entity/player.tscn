@@ -245,6 +245,7 @@ show_percentage = false
 script = ExtResource("4_fv3pd")
 
 [node name="ProgressBar" type="ProgressBar" parent="HUD"]
+visible = false
 offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("5_orfxl")

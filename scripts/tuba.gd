@@ -30,6 +30,7 @@ func take_damage(dmg):
 	modulate = Color.RED
 	await get_tree().create_timer(0.3).timeout
 	modulate = Color.WHITE
+	#AudioServer.set_bus_volume_db(1, 5)
 
 func _enter_tree() -> void:
 	timer.wait_time = (randi() % 3) + 2

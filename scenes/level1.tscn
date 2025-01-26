@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://d4gs741hft70m" path="res://assets/sfx/Laser_Shoot6.wav" id="6_84hqo"]
 [ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="6_ukv6g"]
 [ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="7_euhvd"]
-[ext_resource type="PackedScene" path="res://scenes/invblock.tscn" id="7_om663"]
+[ext_resource type="PackedScene" uid="uid://c82yppxc776u" path="res://scenes/invblock.tscn" id="7_om663"]
 [ext_resource type="AudioStream" uid="uid://qjh08ojc20k8" path="res://assets/music/level-1.mp3" id="7_smxjr"]
 [ext_resource type="PackedScene" uid="uid://dujsb6a1x1f2h" path="res://scenes/entity/poisson.tscn" id="8_n0qlq"]
 [ext_resource type="PackedScene" uid="uid://c3kwnj0v7ehi6" path="res://scenes/entity/tuba.tscn" id="9_ijmxr"]
@@ -85,7 +85,7 @@ tile_set = ExtResource("1_3u56p")
 
 [node name="player" parent="." instance=ExtResource("2_1gvk2")]
 unique_name_in_owner = true
-position = Vector2(67, 613)
+position = Vector2(44, 611)
 floor_constant_speed = true
 safe_margin = 0.2
 SPEED = 3.75
@@ -132,7 +132,7 @@ curve = SubResource("Curve2D_6l1yu")
 position = Vector2(560, 320)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(67, 613)
+position = Vector2(44, 611)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
 limit_bottom = 750
@@ -252,10 +252,12 @@ grow_vertical = 2
 [node name="music2" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_ggstu")
 autoplay = true
+max_distance = 10000.0
 bus = &"Music"
 
 [node name="music1Boss" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_smxjr")
+max_distance = 10000.0
 bus = &"Music"
 
 [connection signal="toggledOff" from="Switch" to="TileMapLayer" method="close"]
