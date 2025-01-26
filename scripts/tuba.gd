@@ -30,7 +30,9 @@ func take_damage(dmg):
 	modulate = Color.RED
 	await get_tree().create_timer(0.3).timeout
 	modulate = Color.WHITE
-	#AudioServer.set_bus_volume_db(1, 5)
+	# baisse la musique à chaque coup
+	var new_vol = AudioServer.get_bus_volume_db(1)-0.9
+	AudioServer.set_bus_volume_db(1, new_vol)
 
 func _enter_tree() -> void:
 	timer.wait_time = (randi() % 3) + 2
@@ -72,6 +74,7 @@ func _process(_delta) -> void:
 	if CURRENT_HEALTH <= 0:
 		died.emit()
 		$deathSound.play()
+		AudioServer.set_bus_mute(1, true)
 		queue_free()
 
 	if current_activity == activities.SHOOTING:

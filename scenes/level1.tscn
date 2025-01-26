@@ -85,7 +85,7 @@ tile_set = ExtResource("1_3u56p")
 
 [node name="player" parent="." instance=ExtResource("2_1gvk2")]
 unique_name_in_owner = true
-position = Vector2(44, 611)
+position = Vector2(42, 610)
 floor_constant_speed = true
 safe_margin = 0.2
 SPEED = 3.75
@@ -132,7 +132,7 @@ curve = SubResource("Curve2D_6l1yu")
 position = Vector2(560, 320)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(44, 611)
+position = Vector2(42, 610)
 offset = Vector2(0, -5)
 zoom = Vector2(3, 3)
 limit_bottom = 750
