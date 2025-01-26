@@ -25,7 +25,6 @@ enum activities {
 }
 
 func take_damage(dmg):
-	$hurtSound.play()
 	super.take_damage(dmg)
 	modulate = Color.RED
 	await get_tree().create_timer(0.3).timeout

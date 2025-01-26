@@ -88,8 +88,12 @@ shape = SubResource("CapsuleShape2D_xtvla")
 
 [node name="deathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_0os3w")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 7
 
 [node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_op7cl")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 7

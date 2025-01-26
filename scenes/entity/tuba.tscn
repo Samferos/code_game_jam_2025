@@ -80,12 +80,17 @@ one_shot = true
 
 [node name="deathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_umq7o")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 5
 
 [node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_w3o86")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 5
 
 [node name="jumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_x4kur")
 bus = &"SFX"
+area_mask = 5

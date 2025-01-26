@@ -1,16 +1,11 @@
-[gd_scene load_steps=24 format=4 uid="uid://e0isilo5gdw6"]
+[gd_scene load_steps=19 format=4 uid="uid://e0isilo5gdw6"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://assets/level1_tileset.tres" id="1_3u56p"]
 [ext_resource type="PackedScene" uid="uid://diafd8q67jpwl" path="res://scenes/entity/player.tscn" id="2_1gvk2"]
-[ext_resource type="AudioStream" uid="uid://c75myapoxhonv" path="res://assets/sfx/Hit_Hurt4.wav" id="3_084k0"]
 [ext_resource type="PackedScene" uid="uid://r71e1emmrhv2" path="res://scenes/entity/tamtam.tscn" id="3_jtsc6"]
-[ext_resource type="AudioStream" uid="uid://cphqdx1tlkof4" path="res://assets/sfx/Jump7.wav" id="4_025ax"]
 [ext_resource type="PackedScene" uid="uid://n2b1jpymwud3" path="res://scenes/terrain/obstacle.tscn" id="4_y35to"]
 [ext_resource type="PackedScene" uid="uid://ce2wportwfvlq" path="res://scenes/terrain/switch.tscn" id="5_7m4uu"]
-[ext_resource type="AudioStream" uid="uid://7fti4hit7wg1" path="res://assets/sfx/Jump14.wav" id="5_8yj55"]
-[ext_resource type="AudioStream" uid="uid://d4gs741hft70m" path="res://assets/sfx/Laser_Shoot6.wav" id="6_84hqo"]
 [ext_resource type="PackedScene" uid="uid://de0qoqdg5bipe" path="res://scenes/entity/buttrate.tscn" id="6_ukv6g"]
-[ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="7_euhvd"]
 [ext_resource type="PackedScene" uid="uid://c82yppxc776u" path="res://scenes/invblock.tscn" id="7_om663"]
 [ext_resource type="AudioStream" uid="uid://qjh08ojc20k8" path="res://assets/music/level-1.mp3" id="7_smxjr"]
 [ext_resource type="PackedScene" uid="uid://dujsb6a1x1f2h" path="res://scenes/entity/poisson.tscn" id="8_n0qlq"]
@@ -92,28 +87,6 @@ SPEED = 3.75
 
 [node name="cameraTransform" parent="player" index="2"]
 remote_path = NodePath("../../Camera2D")
-
-[node name="hurtSound" type="AudioStreamPlayer2D" parent="player"]
-position = Vector2(-1867, -94)
-stream = ExtResource("3_084k0")
-volume_db = 10.0
-bus = &"SFX"
-
-[node name="jumpSound" type="AudioStreamPlayer2D" parent="player"]
-stream = ExtResource("4_025ax")
-bus = &"SFX"
-
-[node name="dashSound" type="AudioStreamPlayer2D" parent="player"]
-stream = ExtResource("5_8yj55")
-bus = &"SFX"
-
-[node name="slashSound" type="AudioStreamPlayer2D" parent="player"]
-stream = ExtResource("6_84hqo")
-bus = &"SFX"
-
-[node name="deathSound" type="AudioStreamPlayer2D" parent="player"]
-stream = ExtResource("7_euhvd")
-bus = &"SFX"
 
 [node name="tamtam" parent="." instance=ExtResource("3_jtsc6")]
 position = Vector2(725, 612)

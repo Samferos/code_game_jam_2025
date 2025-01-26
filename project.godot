@@ -13,6 +13,7 @@ config_version=5
 config/name="code_game_jam"
 run/main_scene="res://scenes/MainMenu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/image="res://assets/theChad.png"
 config/icon="res://assets/sprites/towerOfMelodies.png"
 
 [display]

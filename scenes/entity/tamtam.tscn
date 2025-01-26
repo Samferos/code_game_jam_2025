@@ -122,11 +122,15 @@ visible = true
 
 [node name="deathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_63lek")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 7
 
 [node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_w3npw")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 7
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

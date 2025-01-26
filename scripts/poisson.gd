@@ -69,7 +69,6 @@ func move_toward_player(delta: float) -> void:
 
 
 func take_damage(damage):
-	$hurtSound.play()
 	super.take_damage(damage)
 	health_bar.update_health(CURRENT_HEALTH)
 

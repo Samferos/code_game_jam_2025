@@ -1,10 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://diafd8q67jpwl"]
+[gd_scene load_steps=32 format=3 uid="uid://diafd8q67jpwl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wklbj"]
 [ext_resource type="Texture2D" uid="uid://dvwgoovm1xrsp" path="res://assets/sprites/carl.png" id="2_b8aac"]
 [ext_resource type="PackedScene" uid="uid://bde6mn6mtrhuy" path="res://scenes/health_bar.tscn" id="3_dgsgi"]
 [ext_resource type="Script" path="res://scripts/dashbar.gd" id="4_fv3pd"]
 [ext_resource type="Script" path="res://scenes/entity/progress_bar.gd" id="5_orfxl"]
+[ext_resource type="AudioStream" uid="uid://c75myapoxhonv" path="res://assets/sfx/Hit_Hurt4.wav" id="6_crlmq"]
+[ext_resource type="AudioStream" uid="uid://cphqdx1tlkof4" path="res://assets/sfx/Jump7.wav" id="7_iihcn"]
+[ext_resource type="AudioStream" uid="uid://7fti4hit7wg1" path="res://assets/sfx/Jump14.wav" id="8_p287w"]
+[ext_resource type="AudioStream" uid="uid://d4gs741hft70m" path="res://assets/sfx/Laser_Shoot6.wav" id="9_jbigv"]
+[ext_resource type="AudioStream" uid="uid://bq2vvbiu5suvu" path="res://assets/sfx/Explosion6.wav" id="10_ds2ps"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g0lnx"]
 radius = 8.0
@@ -257,5 +262,31 @@ process_material = SubResource("ParticleProcessMaterial_wwn2u")
 lifetime = 0.2
 one_shot = true
 explosiveness = 1.0
+
+[node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_crlmq")
+volume_db = 10.0
+bus = &"SFX"
+area_mask = 5
+
+[node name="jumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_iihcn")
+volume_db = 2.0
+bus = &"SFX"
+
+[node name="dashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_p287w")
+volume_db = 2.0
+bus = &"SFX"
+
+[node name="slashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_jbigv")
+volume_db = 2.0
+bus = &"SFX"
+
+[node name="deathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ds2ps")
+volume_db = 10.0
+bus = &"SFX"
 
 [connection signal="timeout" from="invisibilityCooldown" to="." method="_on_invisibility_cooldown_timeout"]

@@ -188,11 +188,15 @@ wait_time = 1.35
 
 [node name="deathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_0ixcy")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 5
 
 [node name="hurtSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_k1vha")
+volume_db = 10.0
 bus = &"SFX"
+area_mask = 5
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

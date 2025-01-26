@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://l1p68fo1btqa"]
+[gd_scene load_steps=16 format=3 uid="uid://l1p68fo1btqa"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_300a6"]
 [ext_resource type="PackedScene" uid="uid://65mebt7mndue" path="res://scenes/MainMenu/options_menu.tscn" id="2_yhiq6"]
@@ -13,6 +13,12 @@ corner_radius_top_left = 64
 corner_radius_top_right = 64
 corner_radius_bottom_right = 64
 corner_radius_bottom_left = 64
+
+[sub_resource type="Theme" id="Theme_si5yp"]
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_03bdc"]
+default_font_size = 26
 
 [sub_resource type="Theme" id="Theme_k21cm"]
 
@@ -241,6 +247,47 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Main_menu"]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main_menu/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label-credit" type="Label" parent="Main_menu/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_si5yp")
+text = "Crédit :
+	Sacha
+	Samuel
+	Thé
+	Lohan
+	Selma
+	Baptiste"
+vertical_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main_menu"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label-Input" type="Label" parent="Main_menu/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 1
+theme = SubResource("Theme_03bdc")
+text = "Clavier :
+    ZQSD : direction
+    J : attaque / interaction
+    K : dash
+    ESPACE : saut
+
+Manette :
+    joystick gauche : direction
+    X : attaque / interaction
+    B : dash
+    A : saut"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main_menu"]
 layout_mode = 2

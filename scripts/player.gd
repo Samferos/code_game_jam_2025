@@ -19,6 +19,7 @@ func _ready() -> void:
 	health_bar.visible = true
 	
 func _on_health_depleted():
+	$deathSound.play()
 	died.emit()
 	queue_free()
 	get_tree().change_scene_to_file("res://scenes/MainMenu/main_menu.tscn") # Load the main menu
@@ -27,8 +28,8 @@ func _on_health_depleted():
 func take_damage(damage):
 	if invisibility_cooldown.is_stopped():
 		super.take_damage(damage)
+		##$hurtSound.play()
 		health_bar.update_health(CURRENT_HEALTH)
-		$hurtSound.play()
 
 func take_knockback(kb):
 	if invisibility_cooldown.is_stopped():

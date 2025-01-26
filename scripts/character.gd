@@ -19,6 +19,7 @@ var Velocity: Vector2
 var HoldingWall = false
 
 func take_damage(damage: float):
+	$hurtSound.play()
 	CURRENT_HEALTH -= damage
 	
 func take_knockback(kb: Vector2):
