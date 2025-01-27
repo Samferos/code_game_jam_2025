@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvp1m0ea6lg4i"]
+
+[ext_resource type="Script" path="res://src/Enemy.cs" id="1_ufoat"]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_ufoat")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
