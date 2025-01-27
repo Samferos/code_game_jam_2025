@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://dp3vem01d2nve"]
+[gd_scene load_steps=24 format=3 uid="uid://dp3vem01d2nve"]
 
 [ext_resource type="Texture2D" uid="uid://dvwgoovm1xrsp" path="res://assets/sprites/carl.png" id="1_fwwbg"]
 [ext_resource type="Script" path="res://src/Player.cs" id="1_k27c2"]
+[ext_resource type="PackedScene" uid="uid://dn8wwvmkm2wwy" path="res://ressources/abilities/slash.tscn" id="2_y8npm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q45bq"]
 atlas = ExtResource("1_fwwbg")
@@ -164,23 +165,52 @@ animations = [{
 radius = 6.0
 height = 22.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Abilities")]
+[sub_resource type="Curve" id="Curve_51mm1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.451827, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_pf68q"]
+curve = SubResource("Curve_51mm1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d1s02"]
+lifetime_randomness = 0.35
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 11.87
+initial_velocity_max = 11.87
+gravity = Vector3(0, 0, 0)
+damping_min = 4.748
+damping_max = 8.606
+scale_min = 5.93
+scale_max = 5.93
+scale_curve = SubResource("CurveTexture_pf68q")
+
+[node name="Player" type="CharacterBody2D"]
 floor_constant_speed = true
 floor_max_angle = 1.0472
 floor_snap_length = 4.0
 safe_margin = 0.2
 script = ExtResource("1_k27c2")
+BaseAttack = ExtResource("2_y8npm")
 JumpAccel = 3.0
 JumpAccelFalloff = 21.5
 AirControl = 0.5
 MaxAirControl = 5.0
-Abilities = []
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7ywb8")
-animation = &"start_falling"
 autoplay = "idle"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_asxtf")
+
+[node name="Dash" type="GPUParticles2D" parent="."]
+position = Vector2(0, 14)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_d1s02")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.75
+
+[connection signal="Boost" from="." to="Dash" method="set_emitting" binds= [true]]

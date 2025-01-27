@@ -7,6 +7,13 @@ partial class Player : Character
 {
     private AnimatedSprite2D SpriteSheet;
 
+    [Signal]
+    public delegate void BoostEventHandler();
+
+    [ExportGroup("Abilities")]
+    [Export]
+    public PackedScene BaseAttack;
+
     private bool HasBoost;
 
     public override void _Ready()
@@ -72,6 +79,17 @@ partial class Player : Character
             HasBoost = true;
         }
 
+        if (Input.IsActionJustPressed("attack"))
+        {
+            Attack attack = (Attack)BaseAttack.Instantiate().GetNode(".");
+            var attackDirection = direction.Normalized() * 10.0f;
+            if (attackDirection.IsZeroApprox())
+            {
+                attackDirection = (Facing == Direction.LEFT ? Vector2.Left : Vector2.Right) * 10.0f;
+            }
+            LaunchAttack(attack, attackDirection);
+        }
+
         if (Input.IsActionJustPressed("jump"))
         {
             Jump();
@@ -80,10 +98,13 @@ partial class Player : Character
         {
             StopJumping();
         }
+
         if (Input.IsActionJustPressed("boost") && HasBoost && !direction.IsZeroApprox())
         {
             ApplyForce(direction * JumpImpulse * 2.0f, false);
             HasBoost = false;
+            CurrentAction = Action.JUMPING;
+            EmitSignal(SignalName.Boost);
         }
 
         // Let character handle the movement.

@@ -49,11 +49,17 @@ animations = [{
 }]
 
 [node name="Attack" instance=ExtResource("1_jsnjx")]
+CancelOnOtherBody = false
+Knockback = Vector2(20, 0)
+AwaitAnimation = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="Collision" type="CollisionShape2D" parent="." index="0"]
 shape = SubResource("CircleShape2D_lk2md")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+[node name="Sprite" type="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_h0wpg")
+autoplay = "default"
 frame = 4
 frame_progress = 1.0
+
+[connection signal="animation_finished" from="Sprite" to="." method="Cancel"]

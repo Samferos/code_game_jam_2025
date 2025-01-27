@@ -3,6 +3,6 @@
 [ext_resource type="Script" path="res://src/Enemy.cs" id="1_ufoat"]
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_ufoat")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="."]

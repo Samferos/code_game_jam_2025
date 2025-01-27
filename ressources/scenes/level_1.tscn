@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://c8jgg8ppwgkdw"]
+[gd_scene load_steps=4 format=4 uid="uid://c8jgg8ppwgkdw"]
 
 [ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://ressources/tilesets/level1.tres" id="1_ls768"]
 [ext_resource type="PackedScene" uid="uid://dp3vem01d2nve" path="res://ressources/entities/player.tscn" id="2_fr0jn"]
+[ext_resource type="PackedScene" uid="uid://dqgq6ro6pgs86" path="res://ressources/entities/enemies/tamtam.tscn" id="3_4qa0p"]
 
 [node name="Level1" type="Node2D"]
 
@@ -54,3 +55,18 @@ limit_bottom = 750
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="TamTam" parent="." instance=ExtResource("3_4qa0p")]
+position = Vector2(143, 176)
+
+[node name="TamTam2" parent="." instance=ExtResource("3_4qa0p")]
+position = Vector2(1080, 199)
+
+[node name="TamTam3" parent="." instance=ExtResource("3_4qa0p")]
+position = Vector2(1115, 199)
+
+[node name="TamTam4" parent="." instance=ExtResource("3_4qa0p")]
+position = Vector2(1150, 199)
+
+[node name="TamTam5" parent="." instance=ExtResource("3_4qa0p")]
+position = Vector2(1185, 199)

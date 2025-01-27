@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://dqgq6ro6pgs86"]
+
+[ext_resource type="PackedScene" uid="uid://dvp1m0ea6lg4i" path="res://ressources/entities/enemies/base_enemy.tscn" id="1_7nxss"]
+[ext_resource type="Texture2D" uid="uid://df43piis8bt3o" path="res://assets/sprites/enemies/tamtam.png" id="2_b8doe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4ijd"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8aenu"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fah1v"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nflb"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3f60g"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pkpg"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5w4n"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_787n4"]
+atlas = ExtResource("2_b8doe")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_10bjq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4ijd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4ijd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8aenu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fah1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nflb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3f60g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pkpg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5w4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_787n4")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i8xpg"]
+radius = 6.0
+height = 22.0
+
+[node name="TamTam" instance=ExtResource("1_7nxss")]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_10bjq")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_i8xpg")

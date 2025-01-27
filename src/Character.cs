@@ -15,17 +15,16 @@ public partial class Character : CharacterBody2D
 	private const float RatioSquared = Ratio * Ratio;
 
 	// Variables
-	[ExportCategory("Physical Stats")]
 	[Export]
 	public float Speed = 3.6f;
-	[ExportCategory("Jump Control")]
+	[ExportGroup("Jump Control")]
 	[Export]
 	public float JumpImpulse = 10.0f;
 	[Export]
 	public float JumpAccel = 2.6f;
 	[Export]
 	public float JumpAccelFalloff = 20.4f;
-	[ExportCategory("Air Control")]
+	[ExportGroup("Air Control")]
 	[Export]
 	private float AirControl = 0.3f;
 	[Export]
@@ -34,7 +33,7 @@ public partial class Character : CharacterBody2D
 	private float MaxAirControl = 4.0f;
 	[Export]
 	private float MaxJumpTime = 0.4f;
-	[ExportCategory("Movement Abilities")]
+	[ExportGroup("Movement Abilities")]
 	[Export]
 	private bool AllowWallJump = true;
 	[Export]
