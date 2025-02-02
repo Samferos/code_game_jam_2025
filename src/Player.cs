@@ -1,5 +1,6 @@
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
 using Godot;
 
@@ -10,11 +11,19 @@ partial class Player : Character
     [Signal]
     public delegate void BoostEventHandler();
 
+    [Export]
+    public CollisionShape2D StandingCollision;
+    [Export]
+    public CollisionShape2D CrouchingCollision;
+    [Export]
+    public RayCast2D CrouchHolder; // This sounds so wrong
+
     [ExportGroup("Abilities")]
     [Export]
     public PackedScene BaseAttack;
 
     private bool HasBoost;
+    private bool IsCrouching;
 
     public override void _Ready()
     {
@@ -24,33 +33,51 @@ partial class Player : Character
 
     public override void _Process(double delta)
     {
-        switch (CurrentAction)
+        // Animation Transitions !
+        // Here we check when specific non-looping animations
+        // end, and we switch the corresponding animation
+        // looping section when it has reached its end.
+        if (SpriteSheet.Animation == "start_falling" && !SpriteSheet.IsPlaying())
         {
-            default:
-            case Action.IDLING:
-                SpriteSheet.Play("idle");
-                break;
-            case Action.WALKING:
-                SpriteSheet.Play("walking");
-                break;
-            case Action.WALL_SLIDING:
-                SpriteSheet.Play("wall_sliding");
-                break;
-            case Action.FALLING:
-                // Kinda messy
-                // [TODO] Simplify this shit
-                if ((SpriteSheet.Animation == "start_falling" && !SpriteSheet.IsPlaying()) || SpriteSheet.Animation == "falling")
+            SpriteSheet.Play("falling");
+        }
+        else if (SpriteSheet.Animation == "start_crouching" && !SpriteSheet.IsPlaying())
+        {
+            SpriteSheet.Play("crouching");
+        }
+        // Otherwise we set the animations based on the current action and
+        // the previous action.
+        else
+        {
+            if (IsCrouching)
+            {
+                if (CurrentAction == Action.Idling && SpriteSheet.Animation != "crouching")
                 {
-                    SpriteSheet.Play("falling");
+                    if (SpriteSheet.Animation == "crouching_strafe")
+                    {
+                        SpriteSheet.Play("crouching");
+                    }
+                    else
+                    {
+                        SpriteSheet.Play("start_crouching");
+                    }
                 }
-                else
+                else if (CurrentAction == Action.Moving)
+                {
+                    SpriteSheet.Play("crouching_strafe");
+                }
+            }
+            else
+            {
+                if (CurrentAction == Action.Falling && SpriteSheet.Animation != "falling")
                 {
                     SpriteSheet.Play("start_falling");
                 }
-                break;
-            case Action.JUMPING:
-                SpriteSheet.Play("jumping");
-                break;
+                else
+                {
+                    SpriteSheet.Play(CurrentAction.Name);
+                }
+            }
         }
 
         switch (Facing)
@@ -72,8 +99,6 @@ partial class Player : Character
         Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
         float horizontalDirection = Input.GetAxis("move_left", "move_right");
 
-        Move(horizontalDirection);
-
         if (IsOnFloor())
         {
             HasBoost = true;
@@ -90,7 +115,29 @@ partial class Player : Character
             LaunchAttack(attack, attackDirection);
         }
 
-        if (Input.IsActionJustPressed("jump"))
+        if (IsCrouching)
+        {
+            Move(horizontalDirection / 2.0f);
+        }
+        else
+        {
+            Move(horizontalDirection);
+        }
+
+        if (Input.IsActionPressed("move_down") && IsOnFloor())
+        {
+            StandingCollision.Disabled = true;
+            CrouchingCollision.Disabled = false;
+            IsCrouching = true;
+        }
+        else if (!CrouchHolder.IsColliding())
+        {
+            StandingCollision.Disabled = false;
+            CrouchingCollision.Disabled = true;
+            IsCrouching = false;
+        }
+
+        if (Input.IsActionJustPressed("jump") && !CrouchHolder.IsColliding())
         {
             Jump();
         }
@@ -101,9 +148,9 @@ partial class Player : Character
 
         if (Input.IsActionJustPressed("boost") && HasBoost && !direction.IsZeroApprox())
         {
-            ApplyForce(direction * JumpImpulse * 2.0f, false);
+            ApplyForce((direction + Vector2.Up * 0.3f).Normalized() * JumpImpulse * 2.0f, false);
             HasBoost = false;
-            CurrentAction = Action.JUMPING;
+            CurrentAction = Action.Jumping;
             EmitSignal(SignalName.Boost);
         }
 

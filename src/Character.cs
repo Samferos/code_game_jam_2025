@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using Godot;
 
@@ -16,14 +18,14 @@ public partial class Character : CharacterBody2D
 
 	// Variables
 	[Export]
-	public float Speed = 3.6f;
+	protected float Speed = 3.6f;
 	[ExportGroup("Jump Control")]
 	[Export]
-	public float JumpImpulse = 10.0f;
+	protected float JumpImpulse = 10.0f;
 	[Export]
-	public float JumpAccel = 2.6f;
+	private float JumpAccel = 2.6f;
 	[Export]
-	public float JumpAccelFalloff = 20.4f;
+	private float JumpAccelFalloff = 20.4f;
 	[ExportGroup("Air Control")]
 	[Export]
 	private float AirControl = 0.3f;
@@ -53,19 +55,6 @@ public partial class Character : CharacterBody2D
 
 	protected Action CurrentAction;
 	protected Direction Facing;
-
-	/// <summary>
-	/// Represents the current action the character is doing.
-	/// (on the ground, air, moving, wallsliding etc.)
-	/// </summary>
-	protected enum Action
-	{
-		IDLING, // On ground, with no movement.
-		WALKING, // On ground, moving.
-		WALL_SLIDING, // Sliding on wall, slowing descent.
-		FALLING, // In air, falling.
-		JUMPING, // In air or ground (if jump just started), jumping.
-	}
 
 	/// <summary>
 	/// The Direction the character is facing.
@@ -103,19 +92,19 @@ public partial class Character : CharacterBody2D
 			{
 				Facing = Direction.RIGHT;
 			}
-			if (Mathf.IsZeroApprox(direction))
+			if (Mathf.IsZeroApprox(direction) || IsOnWall())
 			{
-				CurrentAction = Action.IDLING;
+				CurrentAction = Action.Idling;
 			}
 			else
 			{
-				CurrentAction = Action.WALKING;
+				CurrentAction = Action.Moving;
 			}
 		}
 		else if (IsOnWallOnly() && AllowWallSlide && Mathf.Sign(-GetWallNormal().X) == Mathf.Sign(direction))
 		{
 			WallSliding = true;
-			CurrentAction = Action.WALL_SLIDING;
+			CurrentAction = Action.WallSliding;
 			if (direction < 0)
 			{
 				Facing = Direction.RIGHT;
@@ -152,7 +141,7 @@ public partial class Character : CharacterBody2D
 		{
 			velocity.Y = -JumpImpulse * Ratio;
 			Jumping = true;
-			CurrentAction = Action.JUMPING;
+			CurrentAction = Action.Jumping;
 		}
 		else if (AllowWallJump)
 		{ // [TODO] Simplify this shit
@@ -164,7 +153,7 @@ public partial class Character : CharacterBody2D
 				Jumping = true;
 				CurrentAirControl = 0;
 				WallSliding = false;
-				CurrentAction = Action.JUMPING;
+				CurrentAction = Action.Jumping;
 				Facing = Direction.RIGHT;
 			}
 			if (rightCollision != null)
@@ -173,7 +162,7 @@ public partial class Character : CharacterBody2D
 				Jumping = true;
 				CurrentAirControl = 0;
 				WallSliding = false;
-				CurrentAction = Action.JUMPING;
+				CurrentAction = Action.Jumping;
 				Facing = Direction.LEFT;
 			}
 		}
@@ -219,7 +208,7 @@ public partial class Character : CharacterBody2D
 			if (WallSliding)
 			{
 				velocity -= velocity * GroundResistance; // Wall Friction
-				CurrentAction = Action.WALL_SLIDING;
+				CurrentAction = Action.WallSliding;
 				WallSliding = false;
 			}
 			else
@@ -228,7 +217,7 @@ public partial class Character : CharacterBody2D
 				CurrentAirControl = Mathf.Lerp(CurrentAirControl, AirControl, (float)delta * AirControlRecovery);
 				if (velocity.Y > 0)
 				{
-					CurrentAction = Action.FALLING;
+					CurrentAction = Action.Falling;
 				}
 			}
 		}

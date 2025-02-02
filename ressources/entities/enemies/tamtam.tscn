@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://dqgq6ro6pgs86"]
+[gd_scene load_steps=15 format=3 uid="uid://dqgq6ro6pgs86"]
 
 [ext_resource type="PackedScene" uid="uid://dvp1m0ea6lg4i" path="res://ressources/entities/enemies/base_enemy.tscn" id="1_7nxss"]
+[ext_resource type="Script" path="res://src/enemies/Tamtam.cs" id="2_5xhuy"]
 [ext_resource type="Texture2D" uid="uid://df43piis8bt3o" path="res://assets/sprites/enemies/tamtam.png" id="2_b8doe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r4ijd"]
@@ -84,13 +85,32 @@ animations = [{
 radius = 6.0
 height = 22.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tl61k"]
+radius = 4.0
+
 [node name="TamTam" instance=ExtResource("1_7nxss")]
+collision_mask = 6
+script = ExtResource("2_5xhuy")
+Health = 5
+MaxHealth = 5
+Attack = 1
+Defence = 0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_10bjq")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+[node name="Collision" type="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_i8xpg")
+
+[node name="Bumper" type="Area2D" parent="." index="2"]
+position = Vector2(0, -1)
+collision_layer = 4
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="Bumper" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_tl61k")
+debug_color = Color(0.804527, 0.301943, 0.727862, 0.42)

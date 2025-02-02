@@ -1,6 +1,4 @@
-using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 using Godot;
 
 public partial class Attack : Area2D
@@ -9,6 +7,8 @@ public partial class Attack : Area2D
 	public bool SelfDamage = false;
 	[Export]
 	public bool CancelOnOtherBody = true;
+	[Export]
+	public bool HasLimitedHits = true;
 	[Export]
 	public bool Rotates = true;
 	[Export]
@@ -33,7 +33,8 @@ public partial class Attack : Area2D
 	/// </summary>
 	[Export]
 	public bool AwaitAnimation = false;
-	public Character owner;
+
+	public Character attackOwner;
 
 	/// <summary>
 	/// Sent went the attack hits for the last time
@@ -42,32 +43,42 @@ public partial class Attack : Area2D
 	[Signal]
 	public delegate void LastHitEventHandler();
 
+	[Signal]
+	public delegate void HasHitEventHandler();
+
 	public override void _Ready()
 	{
-		BodyEntered += (body) =>
+		BodyEntered += async (body) =>
 		{
 			if (body is Character)
 			{
-				if (SelfDamage && body == owner)
+				if (SelfDamage && body == attackOwner)
 				{
-					owner.DealDamageTo(owner, AttackMult);
-					owner.ApplyForce(Knockback.Rotated(Rotation));
+					attackOwner.DealDamageTo(attackOwner, AttackMult);
+					attackOwner.ApplyForce(Knockback.Rotated(Rotation));
 					MaxHits--;
+					EmitSignal(SignalName.HasHit);
 				}
-				else if (body != owner)
+				else if (body != attackOwner)
 				{
-					owner.DealDamageTo(body as Character, AttackMult);
+					attackOwner.DealDamageTo(body as Character, AttackMult);
 					(body as Character).ApplyForce(Knockback.Rotated(Rotation));
-					owner.ApplyForce(SelfKnockback.Rotated(Rotation));
+					attackOwner.ApplyForce(SelfKnockback.Rotated(Rotation), false);
 					MaxHits--;
+					EmitSignal(SignalName.HasHit);
 				}
 			}
 			else if (CancelOnOtherBody)
 			{
 				MaxHits = 0;
 			}
-			if (MaxHits <= 0)
+			if (HasLimitedHits && MaxHits <= 0)
 			{
+				if (AwaitAnimation)
+				{
+					var SpriteSheet = (AnimatedSprite2D)GetChildren().FirstOrDefault((child) => { return child is AnimatedSprite2D; });
+					await ToSignal(SpriteSheet, AnimatedSprite2D.SignalName.AnimationFinished);
+				}
 				EmitSignal(SignalName.LastHit);
 				QueueFree();
 			}
@@ -89,15 +100,6 @@ public partial class Attack : Area2D
 
 	public void Cancel()
 	{
-		if (AwaitAnimation)
-		{
-			var SpriteSheet = (AnimatedSprite2D)GetChildren().FirstOrDefault((child) => { return child is AnimatedSprite2D; });
-			if (SpriteSheet.IsPlaying())
-			{
-				//await ToSignal(SpriteSheet, AnimatedSprite2D.SignalName.AnimationFinished);
-			}
-		}
-		EmitSignal(SignalName.LastHit);
 		QueueFree();
 	}
 }

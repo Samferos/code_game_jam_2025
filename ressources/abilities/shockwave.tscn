@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://c8cic1fay7llr"]
+
+[ext_resource type="PackedScene" uid="uid://vwqvjcwwh4te" path="res://ressources/abilities/base_attack.tscn" id="1_oelfk"]
+[ext_resource type="Texture2D" uid="uid://bg13m8apbrtl1" path="res://assets/sprites/fx/shockwave.png" id="2_kumo5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1dnaf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysf11"]
+atlas = ExtResource("2_kumo5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn84s"]
+atlas = ExtResource("2_kumo5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0uno"]
+atlas = ExtResource("2_kumo5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4xo8"]
+atlas = ExtResource("2_kumo5")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ynfm"]
+atlas = ExtResource("2_kumo5")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ucst"]
+atlas = ExtResource("2_kumo5")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0o6i"]
+atlas = ExtResource("2_kumo5")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pir8d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysf11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn84s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0uno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4xo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ynfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ucst")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0o6i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Shockwave" instance=ExtResource("1_oelfk")]
+collision_mask = 7
+Flips = false
+MaxHits = 5
+AttackMult = 1.2
+SpawnGlobal = true
+Velocity = Vector2(2, 0)
+Knockback = Vector2(4, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_1dnaf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_pir8d")
+autoplay = "default"
+frame_progress = 0.596681
+
+[node name="Timer" type="Timer" parent="." index="2"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="Cancel"]

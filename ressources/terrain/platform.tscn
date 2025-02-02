@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://gywk22k3auj4"]
+
+[ext_resource type="TileSet" uid="uid://ckbuyp4oefuw1" path="res://ressources/tilesets/level1.tres" id="1_j4m57"]
+[ext_resource type="Script" path="res://src/terrain/Platform.cs" id="2_sundj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2nro5"]
+size = Vector2(64, 5)
+
+[sub_resource type="Curve" id="Curve_f0ad5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.84523, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nsajb"]
+curve = SubResource("Curve_f0ad5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oel2i"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(30, 6, 1)
+gravity = Vector3(0, 0.2, 0)
+linear_accel_min = 33.24
+linear_accel_max = 47.48
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_nsajb")
+color = Color(0, 0.662745, 0.568627, 1)
+
+[node name="Platform" type="TileMapLayer"]
+tile_map_data = PackedByteArray(0, 0, 254, 255, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 255, 255, 0, 0, 0, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0)
+tile_set = ExtResource("1_j4m57")
+script = ExtResource("2_sundj")
+
+[node name="StepOnArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="StepOnArea"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_2nro5")
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, 8)
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_oel2i")
+one_shot = true
+explosiveness = 0.75
+randomness = 0.33
+trail_lifetime = 0.08
+
+[connection signal="body_entered" from="StepOnArea" to="Particles" method="restart" unbinds=1]

@@ -33,8 +33,16 @@ public partial class Character : CharacterBody2D
 
 	protected void LaunchAttack(Attack attack, Vector2 offset)
 	{
-		AddChild(attack);
-		attack.owner = this;
+		if (attack.SpawnGlobal)
+		{
+			GetTree().Root.AddChild(attack);
+			attack.Position = Position;
+		}
+		else
+		{
+			AddChild(attack);
+		}
+		attack.attackOwner = this;
 		if (attack.Rotates)
 		{
 			attack.Rotation = offset.Angle();

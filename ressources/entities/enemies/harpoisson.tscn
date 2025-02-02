@@ -1,0 +1,121 @@
+[gd_scene load_steps=17 format=3 uid="uid://hvwq71xds7c4"]
+
+[ext_resource type="PackedScene" uid="uid://dvp1m0ea6lg4i" path="res://ressources/entities/enemies/base_enemy.tscn" id="1_h7ykc"]
+[ext_resource type="Script" path="res://src/enemies/Tamtam.cs" id="2_2q6fj"]
+[ext_resource type="Texture2D" uid="uid://b3x7situ8opjy" path="res://assets/sprites/enemies/poisson.png" id="2_ak1ec"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wseoe"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gd2mn"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5o6e"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ufgm"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(192, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3t6x"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01cph"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(64, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goddt"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n0fb"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8hat"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2rji"]
+atlas = ExtResource("2_ak1ec")
+region = Rect2(192, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s5g6y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wseoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gd2mn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5o6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ufgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3t6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01cph")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_goddt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3n0fb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8hat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2rji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8hat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3n0fb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n2yp3"]
+radius = 11.0454
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gt5i8"]
+radius = 5.0
+height = 38.0
+
+[node name="Harpoisson" instance=ExtResource("1_h7ykc")]
+script = ExtResource("2_2q6fj")
+Speed = 0.5
+Health = 50
+MaxHealth = 50
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_s5g6y")
+autoplay = "default"
+frame_progress = 0.0345234
+
+[node name="Collision" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(-5, 1)
+shape = SubResource("CircleShape2D_n2yp3")
+
+[node name="CollisionTail" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(9, 7)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gt5i8")

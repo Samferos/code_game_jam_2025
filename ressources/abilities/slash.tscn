@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn8wwvmkm2wwy"]
+[gd_scene load_steps=11 format=3 uid="uid://dn8wwvmkm2wwy"]
 
 [ext_resource type="PackedScene" uid="uid://vwqvjcwwh4te" path="res://ressources/abilities/base_attack.tscn" id="1_jsnjx"]
-[ext_resource type="Texture2D" uid="uid://bpnyxaf3jfq0u" path="res://assets/fx/slash.png" id="2_3gppe"]
+[ext_resource type="Texture2D" uid="uid://bpnyxaf3jfq0u" path="res://assets/sprites/fx/slash.png" id="2_3gppe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lk2md"]
 
@@ -48,9 +48,20 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1kdpg"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 136.5
+initial_velocity_max = 136.5
+gravity = Vector3(0, 0, 0)
+collision_mode = 1
+collision_friction = 0.15
+collision_bounce = 0.77
+
 [node name="Attack" instance=ExtResource("1_jsnjx")]
 CancelOnOtherBody = false
 Knockback = Vector2(20, 0)
+SelfKnockback = Vector2(-13, 0)
 AwaitAnimation = true
 
 [node name="Collision" type="CollisionShape2D" parent="." index="0"]
@@ -62,4 +73,12 @@ autoplay = "default"
 frame = 4
 frame_progress = 1.0
 
+[node name="Spark" type="GPUParticles2D" parent="." index="2"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_1kdpg")
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.99
+
+[connection signal="HasHit" from="." to="Spark" method="set_emitting" binds= [true]]
 [connection signal="animation_finished" from="Sprite" to="." method="Cancel"]
